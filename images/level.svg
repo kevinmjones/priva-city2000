@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <defs>
+    <linearGradient id="bgLvl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#07090c"/>
+      <stop offset="100%" stop-color="#0e1116"/>
+    </linearGradient>
+    <radialGradient id="bubbleGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8a23a" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#e8a23a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tubeBg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#181c23"/>
+      <stop offset="50%" stop-color="#1e232b"/>
+      <stop offset="100%" stop-color="#181c23"/>
+    </linearGradient>
+  </defs>
+  <rect width="390" height="844" fill="url(#bgLvl)"/>
+  <!-- Status bar -->
+  <text x="30" y="30" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6c6960" opacity="0.7">10:28</text>
+  <text x="360" y="30" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6c6960" opacity="0.7">📶 94%</text>
+  <!-- Level label -->
+  <text x="195" y="80" text-anchor="middle" font-family="'Fraunces', serif" font-size="24" fill="#ece7da">Level</text>
+  <!-- Circular gauge -->
+  <circle cx="195" cy="310" r="140" fill="none" stroke="#1e232b" stroke-width="2"/>
+  <circle cx="195" cy="310" r="120" fill="none" stroke="#2a2f38" stroke-width="1" stroke-dasharray="2,4"/>
+  <!-- Tick marks -->
+  <g stroke="#2a2f38" stroke-width="1" opacity="0.6">
+    <line x1="195" y1="180" x2="195" y2="190"/>
+    <line x1="300" y1="210" x2="293" y2="218"/>
+    <line x1="325" y1="310" x2="315" y2="310"/>
+    <line x1="300" y1="410" x2="293" y2="402"/>
+    <line x1="195" y1="440" x2="195" y2="430"/>
+    <line x1="90" y1="410" x2="97" y2="402"/>
+    <line x1="65" y1="310" x2="75" y2="310"/>
+    <line x1="90" y1="210" x2="97" y2="218"/>
+  </g>
+  <!-- Bubble in center (level) -->
+  <circle cx="195" cy="310" r="55" fill="url(#bubbleGlow)"/>
+  <circle cx="195" cy="310" r="6" fill="#e8a23a" opacity="0.6"/>
+  <!-- Level indicator lines -->
+  <line x1="55" y1="310" x2="90" y2="310" stroke="#e8a23a" stroke-width="1.5" opacity="0.5"/>
+  <line x1="300" y1="310" x2="335" y2="310" stroke="#e8a23a" stroke-width="1.5" opacity="0.5"/>
+  <!-- Horizontal tube bubble level -->
+  <rect x="60" y="490" width="270" height="40" rx="20" fill="url(#tubeBg)" stroke="#2a2f38" stroke-width="1"/>
+  <circle cx="195" cy="510" r="14" fill="#e8a23a" opacity="0.85"/>
+  <circle cx="195" cy="510" r="6" fill="#e8a23a" opacity="0.3"/>
+  <!-- Tube tick marks -->
+  <line x1="120" y1="500" x2="120" y2="520" stroke="#3e3c37" stroke-width="1"/>
+  <line x1="195" y1="498" x2="195" y2="522" stroke="#6c6960" stroke-width="1.5"/>
+  <line x1="270" y1="500" x2="270" y2="520" stroke="#3e3c37" stroke-width="1"/>
+  <!-- Angle readout -->
+  <text x="195" y="580" text-anchor="middle" font-family="'Fraunces', serif" font-size="42" fill="#ece7da" font-weight="300">0.0°</text>
+  <text x="195" y="605" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6c6960" letter-spacing="2">PERFECTLY LEVEL</text>
+  <!-- Calibration button -->
+  <rect x="120" y="640" width="150" height="36" rx="18" fill="#e8a23a" opacity="0.12" stroke="#e8a23a" stroke-width="1"/>
+  <text x="195" y="663" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#e8a23a">Calibrate</text>
+</svg>

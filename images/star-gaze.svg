@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <defs>
+    <radialGradient id="skyGrad" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#0a0e1a"/>
+      <stop offset="40%" stop-color="#060914"/>
+      <stop offset="100%" stop-color="#020308"/>
+    </radialGradient>
+    <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e8a23a" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#e8a23a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="390" height="844" fill="url(#skyGrad)"/>
+  <!-- Status bar (dim) -->
+  <text x="30" y="30" font-family="'JetBrains Mono', monospace" font-size="12" fill="#3e3c37">10:28</text>
+  <!-- Stars -->
+  <g fill="white">
+    <circle cx="50" cy="100" r="1.2" opacity="0.9"/>
+    <circle cx="120" cy="60" r="0.8" opacity="0.7"/>
+    <circle cx="340" cy="90" r="1.5" opacity="0.95"/>
+    <circle cx="280" cy="45" r="0.6" opacity="0.5"/>
+    <circle cx="60" cy="180" r="1" opacity="0.8"/>
+    <circle cx="190" cy="150" r="0.7" opacity="0.6"/>
+    <circle cx="330" cy="200" r="1.3" opacity="0.85"/>
+    <circle cx="100" cy="280" r="0.9" opacity="0.7"/>
+    <circle cx="250" cy="250" r="1.1" opacity="0.8"/>
+    <circle cx="370" cy="300" r="0.5" opacity="0.4"/>
+    <circle cx="30" cy="350" r="0.8" opacity="0.6"/>
+    <circle cx="160" cy="380" r="1.4" opacity="0.9"/>
+    <circle cx="310" cy="360" r="0.6" opacity="0.5"/>
+    <circle cx="200" cy="420" r="0.9" opacity="0.7"/>
+    <circle cx="80" cy="450" r="1.2" opacity="0.85"/>
+    <circle cx="350" cy="480" r="0.7" opacity="0.6"/>
+    <circle cx="150" cy="520" r="1" opacity="0.75"/>
+    <circle cx="270" cy="500" r="0.8" opacity="0.65"/>
+    <circle cx="50" cy="560" r="1.1" opacity="0.8"/>
+    <circle cx="320" cy="550" r="0.5" opacity="0.4"/>
+    <circle cx="100" cy="620" r="0.9" opacity="0.7"/>
+    <circle cx="240" cy="600" r="1.3" opacity="0.85"/>
+    <circle cx="380" cy="640" r="0.6" opacity="0.5"/>
+    <circle cx="70" cy="700" r="1" opacity="0.75"/>
+    <circle cx="310" cy="680" r="0.8" opacity="0.6"/>
+    <circle cx="180" cy="750" r="1.5" opacity="0.9"/>
+  </g>
+  <!-- Constellation: Orion-like -->
+  <g stroke="#e8a23a" stroke-width="0.5" opacity="0.35">
+    <line x1="120" y1="60" x2="190" y2="150"/>
+    <line x1="190" y1="150" x2="250" y2="250"/>
+    <line x1="250" y1="250" x2="330" y2="200"/>
+    <line x1="250" y1="250" x2="160" y2="380"/>
+    <line x1="160" y1="380" x2="310" y2="360"/>
+    <line x1="160" y1="380" x2="200" y2="420"/>
+  </g>
+  <!-- Constellation labels -->
+  <text x="220" y="170" font-family="'JetBrains Mono', monospace" font-size="7" fill="#e8a23a" opacity="0.4">Orion</text>
+  <!-- Connecting nebula glow -->
+  <circle cx="250" cy="250" r="30" fill="url(#glow1)"/>
+  <!-- Large bright star with glow -->
+  <circle cx="340" cy="90" r="3" fill="white" opacity="0.9"/>
+  <circle cx="340" cy="90" r="10" fill="url(#glow1)"/>
+  <!-- Information overlay -->
+  <rect x="0" y="700" width="390" height="144" fill="#0a0e1a" opacity="0.8"/>
+  <rect x="0" y="700" width="390" height="1" fill="#1e232b"/>
+  <text x="195" y="725" text-anchor="middle" font-family="'Fraunces', serif" font-size="20" fill="#ece7da" opacity="0.9">Sirius</text>
+  <text x="195" y="745" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6c6960">Canis Major · −1.46 mag</text>
+  <!-- Bottom action bar -->
+  <text x="35" y="785" font-family="'JetBrains Mono', monospace" font-size="11" fill="#a39d8f">🔍 Search</text>
+  <text x="195" y="785" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#a39d8f">📍 Locate</text>
+  <text x="355" y="785" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="11" fill="#e8a23a">★ Guide</text>
+</svg>

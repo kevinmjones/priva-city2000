@@ -385,6 +385,12 @@ a:focus-visible, button:focus-visible {
 .tag.green { color: var(--green); border-color: rgba(134,176,107,.45); background: rgba(134,176,107,.06); }
 
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.card.coming-soon { border-style: dashed; border-color: var(--rule); background: transparent; }
+.card.coming-soon::before { opacity: .3; }
+.card.coming-soon:hover { border-color: var(--fg-ghost); }
+.card.coming-soon .card-label { opacity: .7; }
+.card.coming-soon p { opacity: .6; }
+.card.coming-soon .card-tags .tag { opacity: .7; }
 
 /* ---- CARD VALUE (large numbers) ---- */
 .card-value {
@@ -567,6 +573,15 @@ a:focus-visible, button:focus-visible {
   line-height: 1.4;
 }
 .phone-mockup .mockup-icon { font-size: 2.5rem; opacity: .3; margin-bottom: .5rem; }
+.phone-mockup img {
+  position: absolute;
+  inset: 20px 8px 8px 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 28px);
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
 
 .gallery-row {
   display: flex;

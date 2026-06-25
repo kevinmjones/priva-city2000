@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0e1116"/>
+      <stop offset="100%" stop-color="#13161b"/>
+    </linearGradient>
+  </defs>
+  <rect width="390" height="844" fill="url(#bgGrad)"/>
+  <!-- Status bar -->
+  <text x="30" y="30" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6c6960" opacity="0.7">10:28</text>
+  <text x="360" y="30" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="12" fill="#6c6960" opacity="0.7">📶 94%</text>
+  <!-- Header -->
+  <text x="195" y="60" text-anchor="middle" font-family="'Fraunces', serif" font-size="22" fill="#ece7da">Conversion</text>
+  <!-- Category selector -->
+  <rect x="20" y="80" width="350" height="32" rx="16" fill="#181c23" stroke="#2a2f38" stroke-width="1"/>
+  <text x="195" y="101" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="13" fill="#ece7da">Temperature</text>
+  <!-- From card -->
+  <rect x="20" y="130" width="350" height="100" rx="12" fill="#181c23" stroke="#2a2f38" stroke-width="1"/>
+  <text x="35" y="155" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6c6960" text-transform="uppercase" letter-spacing="1">From</text>
+  <text x="35" y="195" font-family="'JetBrains Mono', monospace" font-size="32" fill="#ece7da" font-weight="300">37</text>
+  <text x="170" y="195" font-family="'JetBrains Mono', monospace" font-size="14" fill="#6c6960">°C</text>
+  <!-- Swap button -->
+  <circle cx="195" cy="265" r="18" fill="#e8a23a" opacity="0.12"/>
+  <text x="195" y="271" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="16" fill="#e8a23a">⇅</text>
+  <!-- To card -->
+  <rect x="20" y="290" width="350" height="100" rx="12" fill="#181c23" stroke="#e8a23a" stroke-width="1.5"/>
+  <text x="35" y="315" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6c6960" text-transform="uppercase" letter-spacing="1">To</text>
+  <text x="35" y="355" font-family="'JetBrains Mono', monospace" font-size="32" fill="#e8a23a" font-weight="300">98.6</text>
+  <text x="170" y="355" font-family="'JetBrains Mono', monospace" font-size="14" fill="#e8a23a">°F</text>
+  <!-- Quick pins -->
+  <text x="195" y="425" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6c6960" letter-spacing="1">PINNED CONVERSIONS</text>
+  <rect x="20" y="440" width="110" height="28" rx="14" fill="none" stroke="#2a2f38" stroke-width="1"/>
+  <text x="75" y="459" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#a39d8f">°C → °F</text>
+  <rect x="140" y="440" width="110" height="28" rx="14" fill="none" stroke="#2a2f38" stroke-width="1"/>
+  <text x="195" y="459" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#a39d8f">cm → in</text>
+  <rect x="260" y="440" width="110" height="28" rx="14" fill="none" stroke="#2a2f38" stroke-width="1"/>
+  <text x="315" y="459" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#a39d8f">km → mi</text>
+  <!-- Category grid -->
+  <text x="195" y="505" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#6c6960" letter-spacing="1">CATEGORIES</text>
+  <g>
+    <rect x="20" y="520" width="75" height="40" rx="8" fill="#181c23" stroke="#2a2f38" stroke-width="0.5"/>
+    <text x="57" y="545" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a39d8f">Length</text>
+    <rect x="105" y="520" width="75" height="40" rx="8" fill="#181c23" stroke="#e8a23a" stroke-width="1"/>
+    <text x="142" y="545" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#e8a23a">Temp</text>
+    <rect x="190" y="520" width="75" height="40" rx="8" fill="#181c23" stroke="#2a2f38" stroke-width="0.5"/>
+    <text x="227" y="545" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a39d8f">Volume</text>
+    <rect x="275" y="520" width="75" height="40" rx="8" fill="#181c23" stroke="#2a2f38" stroke-width="0.5"/>
+    <text x="312" y="545" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a39d8f">Weight</text>
+    <rect x="20" y="570" width="75" height="40" rx="8" fill="#181c23" stroke="#2a2f38" stroke-width="0.5"/>
+    <text x="57" y="595" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a39d8f">Speed</text>
+    <rect x="105" y="570" width="75" height="40" rx="8" fill="#181c23" stroke="#2a2f38" stroke-width="0.5"/>
+    <text x="142" y="595" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a39d8f">Area</text>
+    <rect x="190" y="570" width="75" height="40" rx="8" fill="#181c23" stroke="#2a2f38" stroke-width="0.5"/>
+    <text x="227" y="595" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a39d8f">Time</text>
+    <rect x="275" y="570" width="75" height="40" rx="8" fill="#181c23" stroke="#2a2f38" stroke-width="0.5"/>
+    <text x="312" y="595" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a39d8f">Data</text>
+  </g>
+</svg>
