@@ -3,71 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/archapps/">
   <title>Introducing Arch Apps — Arch Apps Blog</title>
   <meta name="description" content="We are launching Arch Apps — a collection of simple, functional tools built on a radical idea: software should be a tool, not a relationship.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..500,0..100&family=JetBrains+Mono:wght@300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&amp;family=JetBrains+Mono:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;◆&lt;/text&gt;&lt;/svg&gt;">
 </head>
 <body>
   <header>
     <div class="header-inner">
-      <a href="/" class="brand">Arch Apps</a>
+      <a href="./" class="brand">Arch Apps</a>
       <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('nav').classList.toggle('open')">&#9776;</button>
       <nav>
-        <a href="/">Home</a>
-        <a href="/gallery">Apps</a>
-        <a href="/about">About</a>
-        <a href="/mission">Mission</a>
-        <a href="/blog">Blog</a>
-        <a href="/contact">Contact</a>
+        <a href="./">Home</a>
+        <a href="gallery.html">Apps</a>
+        <a href="about.html">About</a>
+        <a href="mission.html">Mission</a>
+        <a href="blog/">Blog</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <article style="max-width:var(--measure); margin:2rem auto;">
-      <p class="meta" style="margin-bottom:.5rem;color:var(--fg-faint);font-size:.75rem;letter-spacing:.12em;">June 25, 2026</p>
-      <h1>Introducing <em>Arch Apps</em></h1>
+    <article class="article-shell">
+      <div class="article-prose">
+        <p style="color:var(--fg-faint);font-size:.72rem;letter-spacing:.12em;margin-bottom:.5rem;">June 25, 2026</p>
+        <h1>Introducing <em>Arch Apps</em></h1>
 
-      <p>Today we are launching Arch Apps &mdash; a collection of simple, functional tools built on a radical idea: <strong>software should be a tool, not a relationship</strong>.</p>
+        <p>Today we are launching Arch Apps — a collection of simple, functional tools built on a radical idea: <strong>software should be a tool, not a relationship</strong>.</p>
 
-      <p>If that sounds obvious, you have not been paying attention to the software industry. Over the past decade, tools have turned into platforms. Products have turned into subscriptions. Utility has turned into engagement. Everything wants your data, your attention, and your recurring payment &mdash; and most of it gives you remarkably little in return.</p>
+        <p>If that sounds obvious, you have not been paying attention to the software industry. Over the past decade, tools have turned into platforms. Products have turned into subscriptions. Utility has turned into engagement. Everything wants your data, your attention, and your recurring payment — and most of it gives you remarkably little in return.</p>
 
-      <p>We are done with that. Arch Apps is our counterproposal.</p>
+        <p>We are done with that. Arch Apps is our counterproposal.</p>
 
-      <h2>What we are shipping</h2>
+        <h2>What we are shipping</h2>
 
-      <p>Today we are announcing five apps, each focused on a single task:</p>
+        <p>Today we are announcing five apps, each focused on a single task:</p>
 
-      <ul>
-        <li><strong>Measuring App</strong> &mdash; AR-powered measurement. Point, measure, done.</li>
-        <li><strong>Unit Conversion</strong> &mdash; convert anything to anything, instantly, offline.</li>
-        <li><strong>Level</strong> &mdash; a precision digital spirit level.</li>
-        <li><strong>Translation</strong> &mdash; text translation with zero tracking.</li>
-        <li><strong>Star Gaze</strong> &mdash; point your phone at the sky and learn what you are looking at.</li>
-      </ul>
+        <ul>
+          <li><strong>Measuring App</strong> — AR-powered measurement. Point, measure, done.</li>
+          <li><strong>Unit Conversion</strong> — convert anything to anything, instantly, offline.</li>
+          <li><strong>Level</strong> — a precision digital spirit level.</li>
+          <li><strong>Translation</strong> — text translation with zero tracking.</li>
+          <li><strong>Star Gaze</strong> — point your phone at the sky and learn what you are looking at.</li>
+        </ul>
 
-      <p>These are not complicated apps. They are not trying to be platforms. They are tools &mdash; the digital equivalent of a well-made hammer, a sharp knife, a reliable tape measure.</p>
+        <p>These are not complicated apps. They are not trying to be platforms. They are tools — the digital equivalent of a well-made hammer, a sharp knife, a reliable tape measure.</p>
 
-      <h2>How we think about software</h2>
+        <h2>How we think about software</h2>
 
-      <p>Every app we build starts with the same constraint: <em>what is the simplest thing that actually solves the problem?</em> We cut everything else. No onboarding flows. No accounts. No notifications. No upsells. No analytics. No &ldquo;joy&rdquo; animations that pad the download size.</p>
+        <p>Every app we build starts with the same constraint: <em>what is the simplest thing that actually solves the problem?</em> We cut everything else. No onboarding flows. No accounts. No notifications. No upsells. No analytics.</p>
 
-      <p>The result is software that opens fast, does its job, and gets out of your way.</p>
+        <p>The result is software that opens fast, does its job, and gets out of your way.</p>
 
-      <h2>What is next</h2>
+        <h2>What is next</h2>
 
-      <p>We are starting with these five apps. Over the coming months we will expand the collection, improve what we have, and share what we learn along the way.</p>
+        <p>We are starting with these five apps. Over the coming months we will expand the collection, improve what we have, and share what we learn along the way.</p>
 
-      <p>If you want to follow along, <a href="/contact">sign up for our announcement list</a>. We will email you rarely and only when there is something worth saying.</p>
+        <p>If you want to follow along, <a href="contact.html">sign up for our announcement list</a>. We will email you rarely and only when there is something worth saying.</p>
 
-      <p>Here is to building tools that respect the people who use them.</p>
+        <p>Here is to building tools that respect the people who use them.</p>
 
-      <p>&mdash; The Arch Apps team</p>
+        <p>— The Arch Apps team</p>
 
-      <p class="backlink" style="margin-top:3rem;"><a href="/blog">&larr; Back to blog</a></p>
+        <p class="backlink" style="margin-top:3rem;"><a href="blog/">← Back to blog</a></p>
+      </div>
     </article>
   </main>
 
@@ -79,15 +82,15 @@
       </div>
       <div class="footer-col">
         <h4>Site</h4>
-        <a href="/">Home</a>
-        <a href="/gallery">Apps</a>
-        <a href="/about">About</a>
-        <a href="/mission">Mission</a>
+        <a href="./">Home</a>
+        <a href="gallery.html">Apps</a>
+        <a href="about.html">About</a>
+        <a href="mission.html">Mission</a>
       </div>
       <div class="footer-col">
         <h4>Connect</h4>
-        <a href="/blog">Blog</a>
-        <a href="/contact">Contact</a>
+        <a href="blog/">Blog</a>
+        <a href="contact.html">Contact</a>
         <a href="https://github.com/kevinmjones/archapps">GitHub</a>
       </div>
     </div>
@@ -96,6 +99,6 @@
     </div>
   </footer>
 
-  <script src="/js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

@@ -3,31 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/archapps/">
   <title>Mission — Arch Apps</title>
   <meta name="description" content="Arch Apps exists to build software that respects your attention, your data, and your intelligence.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..500,0..100&family=JetBrains+Mono:wght@300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
 </head>
 <body>
   <header>
     <div class="header-inner">
-      <a href="/" class="brand">Arch Apps</a>
+      <a href="./" class="brand">Arch Apps</a>
       <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('nav').classList.toggle('open')">&#9776;</button>
       <nav>
-        <a href="/">Home</a>
-        <a href="/gallery">Apps</a>
-        <a href="/about">About</a>
-        <a href="/mission">Mission</a>
-        <a href="/blog">Blog</a>
-        <a href="/contact">Contact</a>
+        <a href="./">Home</a>
+        <a href="gallery.html">Apps</a>
+        <a href="about.html">About</a>
+        <a href="mission.html">Mission</a>
+        <a href="blog/">Blog</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
 
   <main>
     <section class="hero reveal">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot"></span>
+        <span>mission &middot; software should be a tool</span>
+      </div>
       <h1>Why Arch Apps <em>exists</em></h1>
       <p>Software should be a tool, not a relationship.</p>
     </section>
@@ -56,10 +61,11 @@
       <p>If that means we stay small, that is fine. Small is sustainable. Small is honest. Small means every user matters.</p>
     </section>
 
-    <div class="section-callout reveal d4">
-      <p style="font-size:1.05rem;text-align:center;margin:0;">
-        <em>We do not ask for your email. We do not sell your data. We do not hide features behind a paywall.</em>
-      </p>
+    <div class="section-callout reveal d4" style="text-align:center;">
+      <div class="honesty-hook" style="text-align:center;">
+        <div class="hook-label">The commitment</div>
+        <p>We do not ask for your email. We do not sell your data. We do not hide features behind a paywall.</p>
+      </div>
     </div>
   </main>
 
@@ -71,15 +77,15 @@
       </div>
       <div class="footer-col">
         <h4>Site</h4>
-        <a href="/">Home</a>
-        <a href="/gallery">Apps</a>
-        <a href="/about">About</a>
-        <a href="/mission">Mission</a>
+        <a href="./">Home</a>
+        <a href="gallery.html">Apps</a>
+        <a href="about.html">About</a>
+        <a href="mission.html">Mission</a>
       </div>
       <div class="footer-col">
         <h4>Connect</h4>
-        <a href="/blog">Blog</a>
-        <a href="/contact">Contact</a>
+        <a href="blog/">Blog</a>
+        <a href="contact.html">Contact</a>
         <a href="https://github.com/kevinmjones/archapps">GitHub</a>
       </div>
     </div>
@@ -88,6 +94,6 @@
     </div>
   </footer>
 
-  <script src="/js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
