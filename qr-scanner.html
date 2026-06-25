@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/archapps/">
+  <title>QR & Barcode Scanner — Arch Apps</title>
+  <meta name="description" content="Scan QR codes and barcodes instantly. On-device processing, zero data egress. Your scan history stays on your device.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/qr-scanner.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="./" class="brand">Arch Apps</a>
+      <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('nav').classList.toggle('open')">&#9776;</button>
+      <nav>
+        <a href="./">Home</a>
+        <a href="gallery.html">Apps</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="about.html">About</a>
+        <a href="mission.html">Mission</a>
+        <a href="blog/">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="scanner-app">
+      <div class="scanner-toolbar">
+        <div class="scanner-tabs">
+          <button class="scanner-tab active" data-tab="scan">Scan</button>
+          <button class="scanner-tab" data-tab="manual">Manual</button>
+          <button class="scanner-tab" data-tab="history">History <span class="history-count" id="historyCount">0</span></button>
+        </div>
+        <div class="scanner-actions">
+          <button id="torchBtn" class="scanner-action-btn" title="Toggle flashlight" disabled>
+            <span class="torch-icon">&#128294;</span>
+          </button>
+          <button id="cameraBtn" class="scanner-action-btn" title="Switch camera">
+            <span class="camera-icon">&#128247;</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="scanner-panels">
+        <div class="scanner-panel active" id="scanPanel">
+          <div class="viewfinder-container">
+            <video id="cameraView" autoplay playsinline muted></video>
+            <canvas id="scanCanvas" hidden></canvas>
+            <div class="scan-frame">
+              <div class="scan-frame-corner tl"></div>
+              <div class="scan-frame-corner tr"></div>
+              <div class="scan-frame-corner bl"></div>
+              <div class="scan-frame-corner br"></div>
+              <div class="scan-line"></div>
+            </div>
+            <div class="camera-placeholder" id="cameraPlaceholder">
+              <div class="camera-placeholder-icon">&#128247;</div>
+              <p>Camera access required to scan codes</p>
+              <button class="btn btn-primary" id="startCameraBtn">Enable Camera</button>
+            </div>
+            <div class="camera-error" id="cameraError" hidden>
+              <div class="camera-error-icon">&#9888;</div>
+              <p id="cameraErrorMsg">Camera unavailable</p>
+              <button class="btn btn-ghost" id="retryCameraBtn">Retry</button>
+            </div>
+          </div>
+
+          <div class="scan-result" id="scanResult" hidden>
+            <div class="result-header">
+              <span class="result-type" id="resultType"></span>
+              <button class="result-close" id="resultCloseBtn">&times;</button>
+            </div>
+            <div class="result-content" id="resultContent"></div>
+            <div class="result-actions">
+              <button class="btn" id="copyResultBtn">Copy</button>
+              <button class="btn btn-ghost" id="openUrlBtn" hidden>Open</button>
+            </div>
+            <div class="result-toast" id="resultToast">Copied</div>
+          </div>
+        </div>
+
+        <div class="scanner-panel" id="manualPanel">
+          <div class="manual-input-section">
+            <label class="manual-label" for="manualBarcode">Enter barcode number</label>
+            <div class="manual-input-row">
+              <input type="text" id="manualBarcode" class="manual-input" placeholder="e.g. 5901234123457" inputmode="numeric" autocomplete="off">
+              <button class="btn btn-primary" id="manualSubmitBtn">Look Up</button>
+            </div>
+            <div class="manual-result" id="manualResult" hidden>
+              <div class="manual-result-header">Barcode Info</div>
+              <div class="manual-result-body">
+                <div class="manual-result-row">
+                  <span class="manual-result-label">Number</span>
+                  <span class="manual-result-value" id="manualResultNumber"></span>
+                </div>
+                <div class="manual-result-row">
+                  <span class="manual-result-label">Type</span>
+                  <span class="manual-result-value" id="manualResultType"></span>
+                </div>
+                <div class="manual-result-row" id="manualResultPrefixRow" hidden>
+                  <span class="manual-result-label">Country prefix</span>
+                  <span class="manual-result-value" id="manualResultPrefix"></span>
+                </div>
+              </div>
+              <div class="manual-result-actions">
+                <button class="btn" id="manualCopyBtn">Copy Number</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scanner-panel" id="historyPanel">
+          <div class="history-list" id="historyList">
+            <div class="history-empty" id="historyEmpty">
+              <p>No scans yet. Point your camera at a QR code or barcode to start.</p>
+            </div>
+          </div>
+          <div class="history-actions" hidden>
+            <button class="btn btn-ghost" id="clearHistoryBtn">Clear History</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <span class="footer-brand">Arch Apps</span>
+        <p>Simple, functional tools. No bloat.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="./">Home</a>
+        <a href="gallery.html">Apps</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="about.html">About</a>
+        <a href="mission.html">Mission</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="blog/">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://github.com/kevinmjones/archapps">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Arch Apps &middot; Your scans never leave this device</p>
+    </div>
+  </footer>
+
+  <script src="js/jsQR.js"></script>
+  <script src="js/qr-scanner.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
