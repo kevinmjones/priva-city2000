@@ -14,6 +14,7 @@
   <header>
     <div class="header-inner">
       <a href="/" class="brand">Arch Apps</a>
+      <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('nav').classList.toggle('open')">&#9776;</button>
       <nav>
         <a href="/">Home</a>
         <a href="/gallery">Apps</a>
@@ -28,7 +29,7 @@
   <main>
     <section class="hero reveal">
       <h1>Get in <em>touch</em></h1>
-      <p>Questions, ideas, bug reports — we would love to hear from you.</p>
+      <p>Questions, ideas, bug reports &mdash; we would love to hear from you.</p>
     </section>
 
     <section class="section reveal d1">
@@ -36,19 +37,27 @@
         <form id="contactForm">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" required placeholder="Your name">
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" required placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" required placeholder="What is this about?">
           </div>
           <div class="form-group">
             <label for="message">Message</label>
-            <textarea id="message" name="message" required></textarea>
+            <textarea id="message" name="message" required placeholder="Tell us what is on your mind."></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%">Send message</button>
         </form>
-        <p style="margin-top:1rem; font-size:.82rem; color:var(--fg-faint); text-align:center;">
+        <div class="form-success" id="formSuccess">
+          <div class="check">&#10003;</div>
+          <p><strong>Message sent.</strong> We will get back to you soon.</p>
+        </div>
+        <p style="margin-top:1rem; font-size:.78rem; color:var(--fg-faint); text-align:center;">
           No spam. No newsletters you did not ask for. Just a conversation.
         </p>
       </div>
@@ -57,27 +66,55 @@
     <section class="section content-prose reveal d2">
       <h2>Stay updated</h2>
       <p>Want to hear about new apps and updates? Sign up for our very-low-volume announcement list. We will email you only when there is something worth saying.</p>
-      <form id="signupForm" style="display:flex; gap:.75rem; flex-wrap:wrap; max-width:480px; margin-top:1rem;">
-        <input type="email" placeholder="your@email.com" required style="flex:1; min-width:200px; background:var(--ink-2); border:1px solid var(--rule); color:var(--fg); font-family:var(--font-mono); font-size:.88rem; padding:.55rem .7rem;">
-        <button type="submit" class="btn btn-primary">Sign up</button>
-      </form>
-      <p style="font-size:.78rem; color:var(--fg-faint); margin-top:.5rem;">No spam, ever. Unsubscribe anytime.</p>
+      <div class="newsletter-box" style="max-width:480px; margin:0;">
+        <form id="signupForm" style="display:flex; gap:.6rem; width:100%;">
+          <input type="email" placeholder="your@email.com" required style="flex:1; min-width:0;">
+          <button type="submit" class="btn btn-primary">Sign up</button>
+        </form>
+      </div>
+      <p style="font-size:.75rem; color:var(--fg-faint); margin-top:.5rem;">No spam, ever. Unsubscribe anytime.</p>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2026 Arch Apps &middot; Built with purpose, not bloat &middot; <a href="/contact">Contact</a></p>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <span class="footer-brand">Arch Apps</span>
+        <p>Simple, functional tools. No bloat.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="/">Home</a>
+        <a href="/gallery">Apps</a>
+        <a href="/about">About</a>
+        <a href="/mission">Mission</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+        <a href="https://github.com/kevinmjones/archapps">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Arch Apps &middot; Built with purpose, not bloat</p>
+    </div>
   </footer>
 
   <script src="/js/main.js"></script>
   <script>
-    document.getElementById('contactForm')?.addEventListener('submit', e => {
+    document.getElementById('contactForm')?.addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('Thanks for reaching out! We will get back to you soon.');
+      this.style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
     });
-    document.getElementById('signupForm')?.addEventListener('submit', e => {
+    document.getElementById('signupForm')?.addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('You are signed up! Watch for our next update.');
+      var btn = this.querySelector('.btn');
+      var orig = btn.textContent;
+      btn.textContent = 'Subscribed!';
+      btn.disabled = true;
+      setTimeout(function() { btn.textContent = orig; btn.disabled = false; }, 2000);
     });
   </script>
 </body>
