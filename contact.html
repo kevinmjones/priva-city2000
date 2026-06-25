@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Arch Apps</title>
+  <meta name="description" content="Get in touch with Arch Apps. Sign up for updates, report issues, or just say hello.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..500,0..100&family=JetBrains+Mono:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="/" class="brand">Arch Apps</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/gallery">Apps</a>
+        <a href="/about">About</a>
+        <a href="/mission">Mission</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero reveal">
+      <h1>Get in <em>touch</em></h1>
+      <p>Questions, ideas, bug reports — we would love to hear from you.</p>
+    </section>
+
+    <section class="section reveal d1">
+      <div class="contact-form">
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%">Send message</button>
+        </form>
+        <p style="margin-top:1rem; font-size:.82rem; color:var(--fg-faint); text-align:center;">
+          No spam. No newsletters you did not ask for. Just a conversation.
+        </p>
+      </div>
+    </section>
+
+    <section class="section content-prose reveal d2">
+      <h2>Stay updated</h2>
+      <p>Want to hear about new apps and updates? Sign up for our very-low-volume announcement list. We will email you only when there is something worth saying.</p>
+      <form id="signupForm" style="display:flex; gap:.75rem; flex-wrap:wrap; max-width:480px; margin-top:1rem;">
+        <input type="email" placeholder="your@email.com" required style="flex:1; min-width:200px; background:var(--ink-2); border:1px solid var(--rule); color:var(--fg); font-family:var(--font-mono); font-size:.88rem; padding:.55rem .7rem;">
+        <button type="submit" class="btn btn-primary">Sign up</button>
+      </form>
+      <p style="font-size:.78rem; color:var(--fg-faint); margin-top:.5rem;">No spam, ever. Unsubscribe anytime.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Arch Apps &middot; Built with purpose, not bloat &middot; <a href="/contact">Contact</a></p>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+    document.getElementById('contactForm')?.addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Thanks for reaching out! We will get back to you soon.');
+    });
+    document.getElementById('signupForm')?.addEventListener('submit', e => {
+      e.preventDefault();
+      alert('You are signed up! Watch for our next update.');
+    });
+  </script>
+</body>
+</html>
