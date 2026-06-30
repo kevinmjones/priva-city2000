@@ -48,6 +48,14 @@ We know our tools are good. We don't need to put competitors down to prove it.
 > **Do:** "Most stargazing apps run ads that block the sky. Ours doesn't."
 > **Don't:** "Competitor X is garbage because they sell your data."
 
+**Naming a specific company (the "name names" rule).** Usually we critique a *category*, not a brand. You may name a specific company only when the claim is tethered to a public regulatory or legal finding — an FTC action, a court verdict, an AG settlement, or on-the-record investigative reporting — and you state the data point, not an opinion. The fact does the work; we don't editorialize on top of it.
+
+> **Do:** "Period apps like Flo & Premom sent the fact of a pregnancy to Facebook for ad targeting (FTC, 2021/2023); a 2025 jury found Meta liable under California's wiretap law."
+> **Don't:** "Flo is a scummy company that hates women." (opinion, no finding)
+> **Don't:** "Weather apps probably sell your location." ("probably" = no source; either cite the finding or stay at the category level)
+
+If you can't cite the finding, drop to the category ("ad-supported weather apps") and keep the claim. Never name a company on a hunch — that is the line between confident and reckless.
+
 ### Principle 3: Human, not corporate
 
 Write like a person talking to another person. Contractions are fine. Wit is welcome. Formality is not.
