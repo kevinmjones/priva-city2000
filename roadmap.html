@@ -36,15 +36,15 @@
         <span>roadmap &middot; what we're building next</span>
       </div>
       <h1>Our <em>roadmap</em></h1>
-      <p>Ten utility apps in three waves. Single-purpose, privacy-first, ad-free. Here's what's live and what's coming next.</p>
+      <p>Single-purpose, privacy-first, ad-free &mdash; now in four waves. Six apps live, the rest planned or in evaluation. Wave 4 adds apps that each replace a documented data-harvesting incumbent. Here's what's live and what's coming next.</p>
     </section>
 
     <div class="tape">
       <div class="tape-track">
         <span><span class="lbl">apps live</span> <span class="v amb">6</span></span>
         <span><span class="lbl">in development</span> <span class="v teal">1</span></span>
-        <span><span class="lbl">planned</span> <span class="v green">3</span></span>
-        <span><span class="lbl">target</span> <span class="v">10 total</span></span>
+        <span><span class="lbl">planned + candidates</span> <span class="v green">9</span></span>
+        <span><span class="lbl">target</span> <span class="v">16 total</span></span>
         <span><span class="lbl">accounts needed</span> <span class="v green">0</span></span>
         <span><span class="lbl">data collected</span> <span class="v green">0</span></span>
       </div>
@@ -159,12 +159,135 @@
       </div>
     </section>
 
+    <section class="section reveal d4">
+      <div class="section-head">
+        <span class="sec-n">04</span>
+        <span class="sec-title">Candidates <em>&mdash; Wave 4 (privacy by replacement)</em></span>
+        <span class="sec-meta">under evaluation</span>
+      </div>
+      <p class="reveal" style="max-width:46rem;margin-bottom:1.5rem;">A candidate set where each app exists to replace a documented data-harvesting incumbent. Every entry names the category it replaces, what that category takes, who gets it, and what it is used for &mdash; drawn from FTC actions and investigative reporting. Priority: ship Flashlight + Photo Metadata Scrubber first (quick wins), then Cycle Tracker as the flagship narrative app.</p>
+
+      <div class="gallery-row">
+        <div class="gallery-info">
+          <div style="margin-bottom:.6rem;">
+            <span class="tag amb">Utility</span>
+            <span class="tag teal">iOS / Android</span>
+          </div>
+          <h3>Flashlight</h3>
+          <p>The most famous privacy-abuse app in history was a flashlight. Ours is the honest twin: zero permissions, no networking code at all.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>Brightest Flashlight</strong> (FTC, 2013) &mdash; sent precise location + device ID to ad networks the instant it opened, even if you tapped "Refuse," for ad targeting and resale.</span></div>
+          <ul class="feature-list">
+            <li>Zero permissions, zero network code</li>
+            <li>Instant on, full-brightness toggle, screen-light fallback</li>
+            <li>Nothing to collect, nothing to send</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gallery-row">
+        <div class="gallery-info">
+          <div style="margin-bottom:.6rem;">
+            <span class="tag amb">Privacy</span>
+            <span class="tag teal">iOS / Android</span>
+          </div>
+          <h3>Photo Metadata Scrubber</h3>
+          <p>One tap removes the GPS coordinates and EXIF metadata baked into your photos &mdash; on-device, before you ever share them.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span>the <strong>location-leak surface</strong> fed by broker SDKs (FTC v. X-Mode, 2024) &mdash; GPS/EXIF goes to brokers like Gravy and Kochava (~1B devices) for re-identification and profiling segments.</span></div>
+          <ul class="feature-list">
+            <li>Strip GPS + EXIF/IPTC in one tap, fully on-device</li>
+            <li>Batch-clean before sharing or exporting</li>
+            <li>No upload, no tracking, no account</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gallery-row">
+        <div class="gallery-info">
+          <div style="margin-bottom:.6rem;">
+            <span class="tag green">Health</span>
+            <span class="tag teal">iOS / Android</span>
+          </div>
+          <h3>Cycle Tracker &mdash; flagship</h3>
+          <p>A 100%-on-device period and fertility tracker. No account, no cloud, no third-party SDK &mdash; nothing on a server to subpoena.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>Flo &amp; Premom</strong> (FTC, 2021 &amp; 2023) &mdash; cycle dates, symptoms, and the fact of a pregnancy went to Facebook, Google, AppsFlyer and analytics SDKs for ad targeting; a 2025 jury found Meta liable under California's wiretap law.</span></div>
+          <ul class="feature-list">
+            <li>On-device cycle, symptom, and prediction logging</li>
+            <li>No account, no cloud sync, no third-party SDK</li>
+            <li>Optional on-device passcode / encryption</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gallery-row">
+        <div class="gallery-info">
+          <div style="margin-bottom:.6rem;">
+            <span class="tag amb">Utility</span>
+            <span class="tag teal">iOS / Android</span>
+          </div>
+          <h3>Local Weather</h3>
+          <p>A forecast from a coarse, on-device-resolved location against a public weather API &mdash; no profile, no resale, no hedge-fund pipe.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>The Weather Channel / IBM</strong> (LA City Attorney, 2019) &mdash; collected precise location under a "personalized forecast" prompt and sold it to ad sites and hedge funds.</span></div>
+          <ul class="feature-list">
+            <li>Coarse location resolved on-device</li>
+            <li>Public weather API, no location resale</li>
+            <li>No advertising profile built from where you are</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gallery-row">
+        <div class="gallery-info">
+          <div style="margin-bottom:.6rem;">
+            <span class="tag amb">Utility</span>
+            <span class="tag teal">iOS / Android</span>
+          </div>
+          <h3>Doc &amp; Receipt Scanner</h3>
+          <p>Capture documents and receipts to clean PDFs on-device, metadata stripped automatically. The only egress is the export you choose. Pairs with QR Scanner and Expense Tracker.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>cloud scanner apps</strong> (ad-laden, with a malware history) &mdash; upload images of your documents and IDs "to process," exposing them to breach, subpoena, and model training.</span></div>
+          <ul class="feature-list">
+            <li>On-device capture, edge detection, PDF export</li>
+            <li>Automatic EXIF/metadata stripping</li>
+            <li>Export is the only path data leaves the device</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gallery-row">
+        <div class="gallery-info">
+          <div style="margin-bottom:.6rem;">
+            <span class="tag teal">Productivity</span>
+            <span class="tag teal">iOS / Android</span>
+          </div>
+          <h3>Secure Notes</h3>
+          <p>A plaintext/markdown notepad that is local-only with optional on-device encryption. No account, no sync, no "your notes, our servers."</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>account/cloud-gated note apps</strong> (Mozilla found ~80% of Play "Data Safety" labels misleading) &mdash; keep a permanent copy of your private writing on infrastructure you don't control.</span></div>
+          <ul class="feature-list">
+            <li>Local-only plaintext / markdown notes</li>
+            <li>Optional on-device encryption</li>
+            <li>No account, no sync, no data center</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gallery-row">
+        <div class="gallery-info">
+          <div style="margin-bottom:.6rem;">
+            <span class="tag">Stretch</span>
+            <span class="tag teal">needs E2EE server</span>
+          </div>
+          <h3>Nearby / Family Locator &mdash; held</h3>
+          <p>A privacy-respecting family location-share &mdash; the explicit anti-Life360 &mdash; using end-to-end encryption and no broker resale. Held deliberately: it needs a server and breaks our pure-offline model, so it requires an explicit architecture call (E2EE relay, zero-knowledge) before we commit.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>Life360</strong> (The Markup, 2021) &mdash; sold continuous precise GPS from ~33M users to data brokers including X-Mode, Cuebiq, and Arity.</span></div>
+        </div>
+      </div>
+    </section>
+
     <div class="section-callout reveal d4">
       <div class="honesty-hook" style="text-align:center;">
         <div class="hook-label">The plan, transparently</div>
         <p>We build in public. This roadmap reflects current priorities and timelines. As we learn from users and the market, we adjust. No surprises, no feature creep, no vaporware.</p>
       </div>
-    </section>
+    </div>
 
     <section class="section reveal d5">
       <div class="section-head">
@@ -191,6 +314,11 @@
           <div class="card-label">Wave 3 (Q1 2027)</div>
           <div class="card-value">1</div>
           <div class="card-sub">Expense Tracker</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Wave 4 (candidates)</div>
+          <div class="card-value teal">6</div>
+          <div class="card-sub">Flashlight, Photo Metadata Scrubber, Cycle Tracker, Local Weather, Doc Scanner, Secure Notes</div>
         </div>
       </div>
     </section>

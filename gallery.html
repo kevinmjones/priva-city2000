@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <base href="/priva-city2000/">
   <title>App Gallery — Arch Apps</title>
-  <meta name="description" content="Explore Arch Apps: Measuring App (AR), Unit Conversion, Level, Translation, Star Gaze — simple, functional tools.">
+  <meta name="description" content="Explore Arch Apps: Measuring, Unit Conversion, Level, Translation, Star Gaze, QR Scanner — plus privacy-by-replacement apps (Flashlight, Cycle Tracker, Photo Metadata Scrubber and more) that replace data-harvesting incumbents.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
@@ -199,6 +199,90 @@
           <div class="card-tags"><span class="tag green">Coming soon</span><span class="tag">iOS / Android</span></div>
         </div>
       </div>
+    </section>
+
+    <section class="section reveal d3" style="margin-top:4rem;">
+      <div class="section-head">
+        <span class="sec-n">04</span>
+        <span class="sec-title">Wave 4 <em>&mdash; privacy by replacement</em></span>
+      </div>
+      <p class="reveal" style="max-width:46rem;margin-bottom:1.5rem;">Every app below exists because a popular one abused the same job. We name the category it replaces, what that category takes from you, who gets it, and what it is used for &mdash; sourced from FTC actions and investigative reporting. Then we build the honest version: on-device, no account, nothing to leak.</p>
+
+      <div class="app-privacy">
+        <div class="card">
+          <div class="card-label"><img src="images/icon-flashlight.svg" alt="" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"> &middot; Flashlight</div>
+          <p>The most infamous privacy-abuse app in history was a flashlight. We built the honest twin: zero permissions, and literally no networking code to send anything anywhere.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>"Free" over-collecting utilities</strong> &mdash; Brightest Flashlight (FTC, 2013)</span></div>
+          <dl class="privacy-story">
+            <div><dt>What they take</dt><dd>Precise location and a unique device ID &mdash; <strong>sent the instant the app opened</strong>, before consent, even if you tapped "Refuse."</dd></div>
+            <div><dt>Who gets it</dt><dd>Advertising networks.</dd></div>
+            <div><dt>Used for</dt><dd>Ad targeting and resale into the location-data market.</dd></div>
+          </dl>
+          <div class="privacy-badges"><span>No permissions</span><span>No network code</span><span>Offline</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label"><img src="images/icon-metadata.svg" alt="" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"> &middot; Photo Metadata Scrubber</div>
+          <p>Every photo you share can carry the exact GPS coordinates of where it was taken. One tap strips that out &mdash; entirely on your device &mdash; before the image ever leaves your hands.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>The location-leak surface</strong> fed by broker SDKs (FTC v. X-Mode, 2024)</span></div>
+          <dl class="privacy-story">
+            <div><dt>What they take</dt><dd>GPS coordinates and EXIF/IPTC metadata baked into your photos &mdash; device, timestamp, location.</dd></div>
+            <div><dt>Who gets it</dt><dd>Whoever receives the image, plus the brokers and SDKs that harvest location signals (X-Mode, Gravy, Kochava handled ~1B devices).</dd></div>
+            <div><dt>Used for</dt><dd>Re-identification &mdash; <strong>four location points identify 95% of people</strong> &mdash; and profiling segments like "visited a pregnancy center."</dd></div>
+          </dl>
+          <div class="privacy-badges"><span>On-device</span><span>No upload</span><span>No tracking</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label"><img src="images/icon-cycle.svg" alt="" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"> &middot; Cycle Tracker</div>
+          <p>Our flagship privacy app: a 100%-on-device period and fertility tracker. No account, no cloud, no third-party SDK &mdash; and nothing on a server to subpoena.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>Period / fertility trackers</strong> &mdash; Flo &amp; Premom (FTC, 2021 &amp; 2023)</span></div>
+          <dl class="privacy-story">
+            <div><dt>What they take</dt><dd>Cycle dates, symptoms, sexual activity, and <strong>the fact of a pregnancy</strong>; Premom also exfiltrated precise location and device IDs.</dd></div>
+            <div><dt>Who gets it</dt><dd>Facebook, Google, AppsFlyer, Flurry &mdash; and, for Premom, China-based analytics SDKs.</dd></div>
+            <div><dt>Used for</dt><dd>Ad targeting &mdash; a pregnancy became an ad signal. A 2025 jury found Meta liable under California's wiretap law.</dd></div>
+          </dl>
+          <div class="privacy-badges"><span>No accounts</span><span>No cloud</span><span>Nothing to subpoena</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label"><img src="images/icon-weather.svg" alt="" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"> &middot; Local Weather</div>
+          <p>A forecast shouldn't fund a location-data business. Ours resolves a coarse location on-device, asks a public weather API, and builds no profile of you.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>Weather apps</strong> &mdash; The Weather Channel / IBM (LA City Attorney, 2019)</span></div>
+          <dl class="privacy-story">
+            <div><dt>What they take</dt><dd>Precise location, collected under a "personalized forecast" prompt.</dd></div>
+            <div><dt>Who gets it</dt><dd>A dozen-plus ad sites &mdash; and <strong>hedge funds</strong>.</dd></div>
+            <div><dt>Used for</dt><dd>Ad targeting, resale, and consumer-behavior analysis for investors.</dd></div>
+          </dl>
+          <div class="privacy-badges"><span>Coarse location</span><span>No resale</span><span>No profile</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label"><img src="images/icon-doc-scanner.svg" alt="" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"> &middot; Doc &amp; Receipt Scanner</div>
+          <p>Capture documents and receipts to clean PDFs on-device, with metadata stripped automatically. The only way your paperwork moves is the export you choose.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>Cloud scanner apps</strong> &mdash; ad-laden, with a malware history</span></div>
+          <dl class="privacy-story">
+            <div><dt>What they take</dt><dd>Images of your documents, receipts, and IDs &mdash; plus EXIF/location metadata &mdash; uploaded "to process."</dd></div>
+            <div><dt>Who gets it</dt><dd>The vendor's cloud, then exposed to breach, subpoena, or model training.</dd></div>
+            <div><dt>Used for</dt><dd>Lock-in and cloud retention of documents you assumed were private.</dd></div>
+          </dl>
+          <div class="privacy-badges"><span>On-device</span><span>Metadata stripped</span><span>Export-only egress</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label"><img src="images/icon-notes.svg" alt="" style="width:18px;height:18px;vertical-align:middle;margin-right:4px;"> &middot; Secure Notes</div>
+          <p>"Your notes, our servers" is the industry default. Ours is local-only with optional on-device encryption &mdash; no account, no sync, no copy you don't control.</p>
+          <div class="replaces"><span class="replaces-tag">Replaces</span> <span><strong>Account/cloud-gated note apps</strong> (Mozilla: ~80% of Play "Data Safety" labels misleading)</span></div>
+          <dl class="privacy-story">
+            <div><dt>What they take</dt><dd>Everything you write &mdash; notes are an unusually intimate data set.</dd></div>
+            <div><dt>Who gets it</dt><dd>The vendor's cloud, subject to breach, subpoena, policy change, and increasingly model training.</dd></div>
+            <div><dt>Used for</dt><dd>Lock-in, and a permanent copy of your private thoughts on infrastructure you don't own.</dd></div>
+          </dl>
+          <div class="privacy-badges"><span>Local-only</span><span>Optional encryption</span><span>No sync</span></div>
+        </div>
+      </div>
+
+      <p class="reveal" style="max-width:46rem;margin-top:1.5rem;color:var(--fg-faint);font-size:.82rem;">Also under consideration: a privacy-respecting <strong>family locator</strong> as the explicit anti-Life360. It needs a server and end-to-end encryption, so it breaks our pure-offline model &mdash; we are holding it until we can do it without becoming the thing we replace. Claims above are sourced in our <a href="roadmap.html">roadmap</a> and the OTL privacy research brief.</p>
     </section>
 
     <div class="section-callout reveal d3">

@@ -603,6 +603,84 @@ a:focus-visible, button:focus-visible {
 .card.coming-soon p { opacity: .6; }
 .card.coming-soon .card-tags .tag { opacity: .7; }
 
+/* ---- PRIVACY STORY (Replaces X + what we don't do) ---- */
+.replaces {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin: .15rem 0 .85rem;
+  font-size: .82rem;
+  color: var(--fg-dim);
+}
+.replaces .replaces-tag {
+  flex-shrink: 0;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--red);
+  border: 1px solid rgba(220,38,38,.35);
+  background: rgba(220,38,38,.05);
+  padding: .12rem .45rem;
+  border-radius: 3px;
+}
+.replaces strong { color: var(--fg); font-weight: 600; }
+
+.privacy-story {
+  margin: 0 0 1rem;
+  border-top: 1px solid var(--rule-hair);
+}
+.privacy-story > div {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: .25rem 1rem;
+  padding: .6rem 0;
+  border-bottom: 1px solid var(--rule-hair);
+  font-size: .82rem;
+  line-height: 1.5;
+}
+.privacy-story dt {
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  padding-top: .12rem;
+}
+.privacy-story dd { margin: 0; color: var(--fg-dim); }
+.privacy-story dd strong { color: var(--fg); font-weight: 600; }
+
+.privacy-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-top: .4rem;
+}
+.privacy-badges span {
+  font-size: .62rem;
+  letter-spacing: .08em;
+  color: var(--teal);
+  border: 1px solid rgba(13,148,136,.3);
+  background: rgba(13,148,136,.05);
+  border-radius: 999px;
+  padding: .18rem .55rem;
+}
+.privacy-badges span::before { content: '\2713\00a0'; color: var(--teal); }
+
+.app-privacy { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+.app-privacy .card { display: flex; flex-direction: column; }
+.app-privacy .card-flag {
+  font-size: .62rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+@media (max-width: 760px) {
+  .app-privacy { grid-template-columns: 1fr; }
+  .privacy-story > div { grid-template-columns: 1fr; gap: .15rem; padding: .5rem 0; }
+}
+
 /* ---- CARD VALUE (large numbers) ---- */
 .card-value {
   font-family: var(--font-serif);
