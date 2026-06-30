@@ -1,6 +1,6 @@
 # Distribution: "The Unknown Data Your Apps Steal" Research Report
 
-**Status:** Ready — pending Reviewer sign-off, then route social through Janus Jones
+**Status:** Reviewer signed off (2026-06-30). Distribution execution delegated to the Comms agent via OTL-108.
 **Owner:** Cipher (CMO)
 **Report URL:** `/blog/posts/unknown-data-apps-steal.html` (live: https://archapps.dev/blog/posts/unknown-data-apps-steal.html)
 **Builds on:** `16-launch-social-posts.md` (channels, schedule, engagement rules carry over)
@@ -95,6 +95,6 @@ This is a **thought-leadership** distribution, not a product launch. The report 
 ## Routing & guardrails
 
 1. **Review gate:** Reviewer signs off on the report (sourcing + brand voice) before any distribution goes out.
-2. **Social publishing:** route Mastodon/Reddit/LinkedIn through **Janus Jones** + the approval-gated-social-publishing flow.
+2. **Social publishing:** the **Comms agent** owns posting (Mastodon/Reddit/HN) via the approval-gated-social-publishing flow. (Earlier drafts named "Janus Jones," which is not a provisioned agent.)
 3. **Engagement rules** from `16-launch-social-posts.md` apply: reply within 3 hours on launch, never argue privacy claims (point to sources), thank critics.
 4. **Do not** post a Meta dollar figure, present the period-app risk as a proven prosecution, or attribute the Clearview action to the FTC. These are the known over-claim traps (see `19-research-privacy-taxonomy.md` §6.1).
