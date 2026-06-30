@@ -126,28 +126,62 @@ canvas#city{position:absolute;inset:0;width:100%;height:100%;display:block;curso
 .chip.gap{background:rgba(255,107,129,.16);color:#ffb3bf;border:1px solid rgba(255,107,129,.4)}
 .chip.ok{background:rgba(84,214,138,.16);color:#a9efc6;border:1px solid rgba(84,214,138,.4)}
 
-/* Palette */
-.palette{
-  position:absolute;right:16px;top:130px;width:300px;max-height:calc(100vh - 230px);
-  background:rgba(18,28,48,.96);border:1px solid var(--line);border-radius:var(--r);
+/* Toolbox */
+.toolbox{
+  position:absolute;right:16px;top:130px;width:312px;max-height:calc(100vh - 230px);
+  background:linear-gradient(180deg,rgba(20,31,53,.97),rgba(15,24,42,.97));
+  border:1px solid var(--line);border-radius:var(--r);
   box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;z-index:8;
 }
-.palette-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px 8px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--ink-dim);text-transform:uppercase}
-.tool-clear{background:transparent;border:1px solid var(--line);color:var(--ink-dim);border-radius:8px;padding:5px 9px;font-size:11px;cursor:pointer}
-.tool-clear.on{outline:2px solid var(--rose);color:#ffb3bf}
-.palette-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px;overflow-y:auto}
+.tbx-head{display:flex;justify-content:space-between;align-items:center;
+  padding:12px 14px 10px;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--ink)}
+.tbx-title{font-weight:700}
+.tbx-budget{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--gold)}
+
+/* tool toolbar (inspect / heatmap / remove) */
+.tbx-tools{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tool{display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:8px 4px;cursor:pointer;color:var(--ink-dim);transition:background .15s,border-color .15s,transform .08s}
+.tool:hover{background:var(--panel-2);border-color:#3a5a86;color:var(--ink)}
+.tool:active{transform:translateY(1px)}
+.tool-ico{font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;height:22px}
+.tool-lbl{font-size:10px;letter-spacing:.04em;text-transform:uppercase}
+.tool.on{border-color:var(--teal);color:var(--ink);background:#15324a;box-shadow:0 0 0 1px var(--teal) inset}
+#btnBulldoze.on{border-color:var(--rose);background:#3a1c26;color:#ffb3bf;box-shadow:0 0 0 1px var(--rose) inset}
+
+/* control groups */
+.tbx-groups{overflow-y:auto;padding:8px 12px 4px;display:flex;flex-direction:column;gap:10px}
+.tbx-group-h{font-size:10px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-mute);margin:2px 2px 6px;display:flex;align-items:center;gap:8px}
+.tbx-group-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.tbx-group-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
 .pcard{
-  text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:11px;
-  padding:9px;cursor:pointer;transition:transform .08s,border-color .15s,background .15s;position:relative;
+  display:flex;flex-direction:column;gap:7px;text-align:left;
+  background:var(--panel);border:1px solid var(--line);border-radius:11px;
+  padding:10px 9px;cursor:pointer;position:relative;
+  transition:transform .08s,border-color .15s,background .15s;
 }
-.pcard:hover{background:var(--panel-2);border-color:#3a5a86}
+.pcard:hover{background:var(--panel-2);border-color:#3a5a86;transform:translateY(-1px)}
 .pcard.sel{border-color:var(--teal);background:#16334a;box-shadow:0 0 0 1px var(--teal) inset}
-.pcard.cant{opacity:.5;cursor:not-allowed}
-.pcard-ico{font-size:20px;line-height:1}
-.pcard-name{font-size:12px;font-weight:600;margin-top:4px;line-height:1.2}
-.pcard-cost{font-family:var(--mono);font-size:11px;color:var(--gold);margin-top:3px}
-.pcard-tag{position:absolute;top:7px;right:7px;font-size:9px;font-family:var(--mono);color:var(--ink-mute);letter-spacing:.05em}
-.palette-hint{padding:10px 14px;font-size:11px;color:var(--ink-mute);line-height:1.4;border-top:1px solid var(--line);margin-top:8px}
+.pcard.cant{opacity:.55;cursor:not-allowed}
+.pcard.cant:hover{transform:none;background:var(--panel)}
+/* icon slot — OTL-121 swaps the glyph here for real control-icon art */
+.pcard-ico{font-size:22px;line-height:1;height:26px;display:flex;align-items:center}
+.pcard-body{display:flex;flex-direction:column;gap:4px}
+.pcard-name{font-size:12px;font-weight:600;line-height:1.2;color:var(--ink)}
+.pcard-meta{display:flex;justify-content:space-between;align-items:baseline;gap:6px}
+.pcard-cost{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--gold)}
+.pcard-cost.bad{color:var(--rose)}
+.pcard-stat{font-family:var(--mono);font-size:10px;color:var(--ink-mute);letter-spacing:.02em}
+.pcard-check{position:absolute;top:8px;right:9px;font-size:12px;color:var(--teal)}
+.pcard-lock{position:absolute;top:8px;right:9px;font-size:9px;font-family:var(--mono);
+  color:#ffb3bf;background:rgba(255,107,129,.14);border:1px solid rgba(255,107,129,.4);
+  border-radius:99px;padding:1px 6px}
+.tbx-hint{padding:10px 14px;font-size:11px;color:var(--ink-mute);line-height:1.45;border-top:1px solid var(--line)}
+.tbx-hint b{color:var(--ink-dim)}
 
 /* Ticker */
 .ticker{position:absolute;left:0;right:0;bottom:0;height:34px;display:flex;align-items:center;background:rgba(9,15,28,.94);border-top:1px solid var(--line);z-index:9}
@@ -198,11 +232,11 @@ canvas#city{position:absolute;inset:0;width:100%;height:100%;display:block;curso
 /* Responsive */
 @media (max-width:880px){
   .hud-frameworks{order:3;width:100%}
-  .palette{width:240px}
+  .toolbox{width:264px}
   .inspector{display:none}
 }
 @media (max-width:560px){
   .hud-stats .stat{min-width:74px}
-  .palette{left:8px;right:8px;width:auto;top:auto;bottom:42px;max-height:42vh}
-  .palette-grid{grid-template-columns:1fr 1fr 1fr}
+  .toolbox{left:8px;right:8px;width:auto;top:auto;bottom:42px;max-height:46vh}
+  .tbx-group-cards{grid-template-columns:1fr 1fr 1fr}
 }

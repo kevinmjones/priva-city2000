@@ -9,16 +9,17 @@
 'use strict';
 
 /* ---------------- Config & data ---------------- */
-const GRID = 9;                 // 9 x 9 isometric grid
+const GRID = 12;                // 12 x 12 isometric grid (expanded from 9 — OTL-122)
+const BORDER = 2;               // decorative, non-interactive plaza ring around the board
 const TILE_W = 64, TILE_H = 32; // base tile footprint
 const SAVE_KEY = 'privacity2000.save.v2';
 const MAX_PERIOD = 8;
 const WIN = { aiact: 80, trust: 60 };
 
 const DISTRICTS = [
-  { id:'hr',  name:'HR & Workforce',     rows:[0,2], hue:'#3b78d8', soft:'#284a82' },
-  { id:'cust',name:'Customer & Marketing',rows:[3,5], hue:'#1fa99a', soft:'#1b6e66' },
-  { id:'ai',  name:'Product & AI / ML',  rows:[6,8], hue:'#8a6bf0', soft:'#5a47a0' },
+  { id:'hr',  name:'HR & Workforce',      rows:[0,3],  hue:'#3b78d8', soft:'#284a82' },
+  { id:'cust',name:'Customer & Marketing',rows:[4,7],  hue:'#1fa99a', soft:'#1b6e66' },
+  { id:'ai',  name:'Product & AI / ML',   rows:[8,11], hue:'#8a6bf0', soft:'#5a47a0' },
 ];
 function districtOf(row){ return DISTRICTS.find(d => row>=d.rows[0] && row<=d.rows[1]); }
 
@@ -34,26 +35,36 @@ const GAPS = {
   shadowai : { fix:'registry',  sev:60, label:'Shadow / undocumented AI' },
 };
 
-// Build palette — control types (>= 6 required; we ship 8)
+// Build palette — control types (>= 6 required; we ship 8).
+// `short` = on-canvas label; `icon` = placeholder glyph, swapped for real
+// control-icon art by OTL-121 (see [data-icon-slot] in the toolbox markup).
 const CONTROLS = [
-  { id:'inventory', name:'Data Inventory & Mapping', icon:'🗺️', cost:12, radius:2, trust:4, fix:'unmapped', fw:['gdpr','ccpa'], color:'#3fb0ff',
+  { id:'inventory', name:'Data Inventory & Mapping', short:'Inventory',  icon:'🗺️', cost:12, radius:2, trust:4, fix:'unmapped', fw:['gdpr','ccpa'], color:'#3fb0ff',
     blurb:'Discovers and catalogs data stores. Lights up the map.' },
-  { id:'access',    name:'Access Control',           icon:'🔐', cost:14, radius:2, trust:4, fix:'access',   fw:['gdpr'],         color:'#ffd34d',
+  { id:'access',    name:'Access Control',           short:'Access',     icon:'🔐', cost:14, radius:2, trust:4, fix:'access',   fw:['gdpr'],         color:'#ffd34d',
     blurb:'Least-privilege + auth on systems of record.' },
-  { id:'consent',   name:'Consent Manager',          icon:'✅', cost:13, radius:2, trust:4, fix:'consent',  fw:['gdpr','ccpa'], color:'#54d68a',
+  { id:'consent',   name:'Consent Manager',          short:'Consent',    icon:'✅', cost:13, radius:2, trust:4, fix:'consent',  fw:['gdpr','ccpa'], color:'#54d68a',
     blurb:'Captures, honors and expires consent across marketing.' },
-  { id:'dsar',      name:'DSAR / Rights Desk',        icon:'📨', cost:13, radius:2, trust:3, fix:'dsar',     fw:['gdpr','ccpa'], color:'#ff9d5c',
+  { id:'dsar',      name:'DSAR / Rights Desk',        short:'Rights Desk',icon:'📨', cost:13, radius:2, trust:3, fix:'dsar',     fw:['gdpr','ccpa'], color:'#ff9d5c',
     blurb:'Fulfills access / deletion requests on time.' },
-  { id:'vendor',    name:'Vendor Risk Office',        icon:'🤝', cost:14, radius:3, trust:3, fix:'vendor',   fw:['gdpr'],         color:'#c0a3ff',
+  { id:'vendor',    name:'Vendor Risk Office',        short:'Vendor Risk',icon:'🤝', cost:14, radius:3, trust:3, fix:'vendor',   fw:['gdpr'],         color:'#c0a3ff',
     blurb:'DPAs, assessments and monitoring for third parties.' },
-  { id:'dpia',      name:'DPIA / Assessment Center',  icon:'📋', cost:16, radius:2, trust:5, fix:'dpia',     fw:['aiact'],        color:'#7bd0ff',
+  { id:'dpia',      name:'DPIA / Assessment Center',  short:'DPIA',       icon:'📋', cost:16, radius:2, trust:5, fix:'dpia',     fw:['aiact'],        color:'#7bd0ff',
     blurb:'Impact assessments for high-risk AI systems.' },
-  { id:'registry',  name:'AI Model Registry',         icon:'🤖', cost:16, radius:2, trust:5, fix:'shadowai', fw:['aiact'],        color:'#b388ff',
+  { id:'registry',  name:'AI Model Registry',         short:'AI Registry',icon:'🤖', cost:16, radius:2, trust:5, fix:'shadowai', fw:['aiact'],        color:'#b388ff',
     blurb:'Inventories every model in prod. Kills shadow AI.' },
-  { id:'incident',  name:'Incident Response (DPO)',   icon:'🚑', cost:18, radius:3, trust:4, fix:'breach',   fw:['gdpr','aiact'], color:'#ff7a90',
+  { id:'incident',  name:'Incident Response (DPO)',   short:'Incident IR',icon:'🚑', cost:18, radius:3, trust:4, fix:'breach',   fw:['gdpr','aiact'], color:'#ff7a90',
     blurb:'Detect, contain and notify. Blunts breach damage.' },
 ];
 const CONTROL_BY_ID = Object.fromEntries(CONTROLS.map(c=>[c.id,c]));
+
+// Toolbox grouping — keeps the palette legible as a real build menu (OTL-122)
+const CONTROL_GROUPS = [
+  { name:'Foundations',            ids:['inventory','access'] },
+  { name:'Rights & Consent',       ids:['consent','dsar'] },
+  { name:'Third-Party & Incident', ids:['vendor','incident'] },
+  { name:'AI Act Governance',      ids:['dpia','registry'] },
+];
 
 const FRAMEWORKS = [
   { id:'gdpr',  name:'GDPR',       gaps:['unmapped','access','consent','dsar','vendor','breach'] },
@@ -61,26 +72,28 @@ const FRAMEWORKS = [
   { id:'aiact', name:'EU AI Act',  gaps:['dpia','shadowai','breach'], target:WIN.aiact },
 ];
 
-// Pre-seeded enterprise: data activities & AI systems, each with a flagged gap
+// Pre-seeded enterprise: data activities & AI systems, each with a flagged gap.
+// Spread across the 12x12 board (OTL-122); gap mix unchanged so framework /
+// win logic is identical to the 9x9 layout.
 const SEED = [
-  // HR & Workforce (rows 0-2)
-  {col:1,row:0,name:'Workday HRIS',      gap:'unmapped'},
-  {col:3,row:1,name:'Recruiting AI',     gap:'shadowai'},
-  {col:0,row:2,name:'Payroll Vendor',    gap:'vendor'},
-  {col:2,row:2,name:'Employee Portal',   gap:'dsar'},
-  // Customer & Marketing (rows 3-5)
-  {col:1,row:3,name:'CRM · Salesforce',  gap:'access'},
-  {col:4,row:3,name:'Marketing CDP',     gap:'consent'},
-  {col:6,row:4,name:'Ad-tech Pixels',    gap:'consent'},
-  {col:2,row:5,name:'Support Desk',      gap:'dsar'},
-  {col:5,row:5,name:'Loyalty DB',        gap:'breach'},
-  // Product & AI/ML (rows 6-8)
-  {col:1,row:6,name:'Recommender',       gap:'dpia'},
-  {col:4,row:6,name:'Fraud Model',       gap:'dpia'},
-  {col:7,row:6,name:'LLM Chatbot',       gap:'shadowai'},
-  {col:2,row:8,name:'Data Lake',         gap:'unmapped'},
-  {col:5,row:8,name:'Churn Model',       gap:'dpia'},
-  {col:8,row:8,name:'Vendor API',        gap:'vendor'},
+  // HR & Workforce (rows 0-3)
+  {col:1, row:0,  name:'Workday HRIS',     gap:'unmapped'},
+  {col:6, row:1,  name:'Recruiting AI',    gap:'shadowai'},
+  {col:10,row:0,  name:'Payroll Vendor',   gap:'vendor'},
+  {col:4, row:3,  name:'Employee Portal',  gap:'dsar'},
+  // Customer & Marketing (rows 4-7)
+  {col:1, row:4,  name:'CRM · Salesforce', gap:'access'},
+  {col:6, row:5,  name:'Marketing CDP',    gap:'consent'},
+  {col:10,row:4,  name:'Ad-tech Pixels',   gap:'consent'},
+  {col:3, row:7,  name:'Support Desk',     gap:'dsar'},
+  {col:8, row:6,  name:'Loyalty DB',       gap:'breach'},
+  // Product & AI/ML (rows 8-11)
+  {col:1, row:8,  name:'Recommender',      gap:'dpia'},
+  {col:5, row:9,  name:'Fraud Model',      gap:'dpia'},
+  {col:10,row:8,  name:'LLM Chatbot',      gap:'shadowai'},
+  {col:3, row:11, name:'Data Lake',        gap:'unmapped'},
+  {col:7, row:10, name:'Churn Model',      gap:'dpia'},
+  {col:11,row:11, name:'Vendor API',       gap:'vendor'},
 ];
 
 // Scripted regulatory / incident events keyed by the period they fire on
@@ -126,7 +139,7 @@ const TUTORIAL = [
 /* ---------------- State ---------------- */
 let st, buildings, placed, coverField, won=false, lost=false;
 let sel=null, removeMode=false, hover=null, heatmap=false, tutorialIdx=0;
-const view = { scale:1, pan:{x:0,y:0}, origin:{x:0,y:0} };
+const view = { scale:1, pan:{x:0,y:0}, origin:{x:0,y:0}, userZoomed:false };
 
 function freshState(){
   return { period:1, budget:100, reputation:0, aiActLive:false,
@@ -200,10 +213,23 @@ function computeField(){
 }
 
 /* ---------------- Isometric geometry ---------------- */
+// Auto-fit the (now larger) board into the viewport unless the player has
+// manually zoomed. Keeps labels legible at the default framing.
+function fitView(){
+  if(view.userZoomed) return;
+  const cw=canvas.clientWidth, ch=canvas.clientHeight;
+  const span = (GRID-1) + 2*BORDER + 1;          // tiles across the framed board
+  const boardW = span*TILE_W, boardH = span*TILE_H;
+  const availW = Math.max(320, (cw>700 ? cw-336 : cw) - 48);
+  const availH = Math.max(240, (ch-42) - 104 - 56);
+  view.scale = Math.max(0.55, Math.min(1.5, Math.min(availW/boardW, availH/boardH)));
+}
 function layout(){
   const cw=canvas.clientWidth, ch=canvas.clientHeight;
   const playTop=104, playBot=ch-42;
-  view.origin.x = cw/2 + view.pan.x;
+  // Bias the board left of the docked toolbox (right rail) on wide screens.
+  const center = cw>700 ? (cw-336)/2 : cw/2;
+  view.origin.x = center + view.pan.x;
   view.origin.y = (playTop+playBot)/2 - (GRID-1)*(TILE_H/2)*view.scale + view.pan.y;
 }
 function cellToScreen(col,row){
@@ -226,6 +252,7 @@ function resize(){
   canvas.width=Math.floor(canvas.clientWidth*dpr);
   canvas.height=Math.floor(canvas.clientHeight*dpr);
   ctx.setTransform(dpr,0,0,dpr,0,0);
+  fitView();
   render();
 }
 function diamond(x,y,s){
@@ -244,6 +271,34 @@ function heatColor(v){ // v ~ [-?, +?]
   if(t>0) return `rgba(255,70,90,${0.10+0.4*t})`;
   return `rgba(60,220,150,${0.06+0.34*(-t)})`;
 }
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  if(ctx.roundRect){ ctx.roundRect(x,y,w,h,r); return; }
+  ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+/* Legible text plate centered on (cx,cy). Returns its drawn height.
+   High-contrast dark plate + light ink (respects WCAG AA work, OTL-110). */
+function plate(cx,cy,text,opt){
+  opt=opt||{};
+  const fs=opt.fs||12, pad=opt.pad||6, ink=opt.ink||'#eaf1ff',
+        bg=opt.bg||'rgba(9,15,28,.86)', bd=opt.bd||'rgba(255,255,255,.10)';
+  ctx.font=`${opt.weight||600} ${fs}px ${opt.mono?"ui-monospace,monospace":"system-ui,-apple-system,'Segoe UI',sans-serif"}`;
+  const tw=ctx.measureText(text).width;
+  const w=tw+pad*2, h=fs+pad*1.4, x=cx-w/2, y=cy-h/2;
+  ctx.save();
+  ctx.shadowColor='rgba(0,0,0,.5)'; ctx.shadowBlur=6; ctx.shadowOffsetY=1;
+  roundRect(x,y,w,h,Math.min(8,h/2)); ctx.fillStyle=bg; ctx.fill();
+  ctx.shadowColor='transparent';
+  ctx.lineWidth=1; ctx.strokeStyle=bd; ctx.stroke();
+  if(opt.accent){ // left accent bar (district / status tint)
+    roundRect(x,y,3,h,1.5); ctx.fillStyle=opt.accent; ctx.fill();
+  }
+  ctx.fillStyle=ink; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText(text,cx + (opt.accent?1.5:0), y+h/2+0.5);
+  ctx.restore();
+  return h;
+}
 
 function render(){
   if(!st) return;
@@ -260,6 +315,21 @@ function render(){
   rg.addColorStop(0,'rgba(40,70,120,.35)'); rg.addColorStop(1,'rgba(40,70,120,0)');
   ctx.fillStyle=rg; ctx.fillRect(0,0,cw,ch);
 
+  // ---- decorative plaza border (non-interactive framing) ----
+  for(let r=-BORDER;r<GRID+BORDER;r++) for(let c=-BORDER;c<GRID+BORDER;c++){
+    if(c>=0&&c<GRID&&r>=0&&r<GRID) continue;       // interior drawn below
+    const p=cellToScreen(c,r);
+    const edge = (c===-1||c===GRID||r===-1||r===GRID); // inner ring = quay
+    diamond(p.x,p.y,s);
+    ctx.fillStyle = edge ? ((c+r)&1?'#13233e':'#0f1d34') : ((c+r)&1?'#0d182b':'#0b1424');
+    ctx.fill();
+    ctx.lineWidth=1; ctx.strokeStyle='rgba(6,12,24,.5)'; ctx.stroke();
+    if(edge && ((c*3+r*7)%5===0)){                  // sparse deterministic planters
+      ctx.fillStyle='rgba(70,150,130,.5)';
+      ctx.beginPath(); ctx.arc(p.x,p.y,2.4*s,0,Math.PI*2); ctx.fill();
+    }
+  }
+
   // ---- ground tiles ----
   for(let r=0;r<GRID;r++) for(let c=0;c<GRID;c++){
     const p=cellToScreen(c,r), d=districtOf(r);
@@ -269,16 +339,19 @@ function render(){
     if(heatmap){ diamond(p.x,p.y,s); ctx.fillStyle=heatColor(coverField[r][c]); ctx.fill(); }
     ctx.lineWidth=1; ctx.strokeStyle='rgba(8,16,30,.55)'; ctx.stroke();
   }
-
-  // district labels (back edge)
-  ctx.font=`600 ${12*s}px monospace`;
-  ctx.textAlign='left'; ctx.textBaseline='middle';
+  // district boundary seams (brighter line between bands)
+  ctx.lineWidth=2; ctx.strokeStyle='rgba(180,205,255,.18)';
   for(const d of DISTRICTS){
-    const p=cellToScreen(-0.1,(d.rows[0]+d.rows[1])/2);
-    ctx.fillStyle='rgba(232,238,252,.5)';
-    ctx.save(); ctx.translate(p.x-12*s,p.y);
-    ctx.fillText(d.name, -ctx.measureText(d.name).width-6, 0);
-    ctx.restore();
+    const a=cellToScreen(0,d.rows[0]), b=cellToScreen(GRID,d.rows[0]);
+    ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+  }
+
+  // district labels — legible banners seated in the left frame
+  for(const d of DISTRICTS){
+    const p=cellToScreen(-1.4,(d.rows[0]+d.rows[1])/2);
+    plate(p.x,p.y, d.name.toUpperCase(),
+      { fs:Math.max(11,12*s), weight:700, pad:8, mono:true,
+        bg:shade(d.soft,-22), ink:'#f2f7ff', bd:shade(d.hue,-10), accent:d.hue });
   }
 
   // hover ghost ring (placement preview)
@@ -332,6 +405,7 @@ function box(x,y,wHalf,hHalf,height,top,left,right){
   ctx.fillStyle=top; ctx.fill();
 }
 
+function shortName(s,n){ return s.length>n? s.slice(0,n-1)+'…' : s; }
 let pulse=0;
 function drawBuilding(b){
   const p=cellToScreen(b.col,b.row), s=view.scale;
@@ -342,14 +416,22 @@ function drawBuilding(b){
   const left= resolved? shade(d.hue,-30): '#3b4458';
   const right= resolved? shade(d.hue,-12): '#525c72';
   box(p.x,p.y,wHalf,hHalf,ht, top, left, right);
-  // marker above
-  const my=p.y-ht-hHalf-10*s;
+  // legible name plate (status-tinted) above the building
+  const hovered = hover && hover.col===b.col && hover.row===b.row;
+  const plateY = p.y - ht - hHalf - 11*s;
+  plate(p.x, plateY, shortName(b.name,16), {
+    fs:Math.max(10,11*s), pad:5,
+    bg: hovered? 'rgba(18,29,50,.97)' : 'rgba(9,15,28,.84)',
+    ink:'#eaf1ff', accent: resolved?'#54d68a':'#ff6b81',
+    bd: resolved?'rgba(84,214,138,.45)':'rgba(255,107,129,.45)' });
+  // status marker above the plate
+  const my = plateY - 13*s;
   if(resolved){
-    ctx.font=`${14*s}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.font=`${13*s}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
     ctx.fillText('✅',p.x,my);
   } else {
     const a=0.55+0.45*Math.sin(pulse/16);
-    ctx.globalAlpha=a; ctx.font=`${16*s}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.globalAlpha=a; ctx.font=`${15*s}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
     ctx.fillText('⚠️',p.x,my); ctx.globalAlpha=1;
   }
 }
@@ -360,29 +442,54 @@ function drawControl(p0){
   box(p.x,p.y,wHalf,hHalf,ht, shade(c.color,28), shade(c.color,-40), shade(c.color,-18));
   ctx.font=`${15*s}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
   ctx.fillText(c.icon,p.x,p.y-ht-2*s);
+  // legible control name plate, tinted to the control colour
+  plate(p.x, p.y - ht - 16*s, c.short, {
+    fs:Math.max(9,10*s), pad:5, bg:'rgba(9,15,28,.84)',
+    ink:'#eaf1ff', accent:c.color, bd:'rgba(255,255,255,.12)' });
 }
 
 /* ---------------- HUD / UI ---------------- */
+// Reflect the active tool (inspect / heatmap / remove) in the toolbar.
+function syncTools(){
+  $('#btnHeat').classList.toggle('on',heatmap);
+  $('#btnBulldoze').classList.toggle('on',removeMode);
+  $('#btnInspect').classList.toggle('on',!sel && !removeMode);
+}
 function renderPalette(){
-  elPaletteGrid.innerHTML='';
-  for(const c of CONTROLS){
-    const can=st.budget>=c.cost;
-    const el=document.createElement('button');
-    el.className='pcard'+(sel&&sel.id===c.id?' sel':'')+(can?'':' cant');
-    el.innerHTML=`<div class="pcard-ico">${c.icon}</div>
-      <div class="pcard-name">${c.name}</div>
-      <div class="pcard-cost">$${c.cost}k</div>
-      <div class="pcard-tag">r${c.radius}</div>`;
-    el.title=c.blurb;
-    el.onclick=()=>{ removeMode=false; $('#btnBulldoze').classList.remove('on');
+  const tbxBudget=$('#tbxBudget'); if(tbxBudget) tbxBudget.textContent='$'+st.budget+'k';
+  elPaletteGrid.innerHTML = CONTROL_GROUPS.map(g=>{
+    const cards = g.ids.map(id=>{
+      const c=CONTROL_BY_ID[id];
+      const can=st.budget>=c.cost;
+      const seld=sel&&sel.id===c.id;
+      return `<button class="pcard${seld?' sel':''}${can?'':' cant'}" data-id="${c.id}"
+        title="${c.blurb.replace(/"/g,'&quot;')}" aria-pressed="${seld}">
+        <span class="pcard-ico" data-icon-slot="${c.id}">${c.icon}</span>
+        <span class="pcard-body">
+          <span class="pcard-name">${c.name}</span>
+          <span class="pcard-meta">
+            <span class="pcard-cost${can?'':' bad'}">$${c.cost}k</span>
+            <span class="pcard-stat">r${c.radius} · +${c.trust}</span>
+          </span>
+        </span>
+        ${seld?'<span class="pcard-check">✓</span>':''}
+        ${can?'':'<span class="pcard-lock">need $'+c.cost+'k</span>'}
+      </button>`;
+    }).join('');
+    return `<div class="tbx-group"><div class="tbx-group-h">${g.name}</div>
+      <div class="tbx-group-cards">${cards}</div></div>`;
+  }).join('');
+  elPaletteGrid.querySelectorAll('.pcard').forEach(el=>{
+    el.onclick=()=>{ removeMode=false;
+      const c=CONTROL_BY_ID[el.dataset.id];
       sel=(sel&&sel.id===c.id)?null:c; renderPalette(); updateHint(); render(); };
-    elPaletteGrid.appendChild(el);
-  }
+  });
+  syncTools();
 }
 function updateHint(){
-  if(removeMode){ elHint.textContent='Remove mode: click a placed control to refund 60% of its cost.'; return; }
-  if(sel){ elHint.innerHTML=`<b style="color:#e8eefc">${sel.name}</b> — ${sel.blurb} Click a tile to place ($${sel.cost}k).`; }
-  else elHint.textContent='Pick a control, then click a tile to place it. Toggle 🌡️ Heatmap to see coverage.';
+  if(removeMode){ elHint.innerHTML='<b style="color:#ffb3bf">Remove mode</b> — click a placed control to refund 60% of its cost.'; return; }
+  if(sel){ elHint.innerHTML=`<b style="color:#e8eefc">${sel.name}</b> — ${sel.blurb} <b style="color:#f5c451">$${sel.cost}k</b>, covers r${sel.radius}.`; }
+  else elHint.innerHTML='Pick a control, then click a tile to place it. Toggle <b>🌡️ Heatmap</b> to see coverage.';
 }
 function fwTargetMarker(f){
   return f.target? `<span class="fw-target" style="left:${f.target}%"></span>`:'';
@@ -627,9 +734,9 @@ function load(){
 function resetGame(){
   try{ localStorage.removeItem(SAVE_KEY); }catch(e){}
   won=lost=false; sel=null; removeMode=false; heatmap=false;
-  $('#btnHeat').classList.remove('on'); $('#btnBulldoze').classList.remove('on');
+  view.pan.x=0; view.pan.y=0; view.userZoomed=false; fitView();
   st=freshState(); placed=[]; rebuildBuildings(); computeField();
-  buildTicker(); updateHUD(); updateHint(); render();
+  buildTicker(); updateHUD(); updateHint(); render(); syncTools();
   tutorialIdx=0; startTutorial();
 }
 let booted=false;
@@ -677,7 +784,8 @@ canvas.addEventListener('mouseleave',()=>{ hover=null; elInspector.hidden=true; 
 canvas.addEventListener('contextmenu',e=>{ e.preventDefault();
   const p=relPos(e); const cell=screenToCell(p.x,p.y); removeAt(cell.col,cell.row); });
 canvas.addEventListener('wheel',e=>{ e.preventDefault();
-  const f=e.deltaY<0?1.1:0.9; view.scale=Math.max(0.6,Math.min(1.8,view.scale*f)); render(); },{passive:false});
+  const f=e.deltaY<0?1.1:0.9; view.userZoomed=true;
+  view.scale=Math.max(0.6,Math.min(1.8,view.scale*f)); render(); },{passive:false});
 
 // touch (basic): tap to place, drag to pan
 canvas.addEventListener('touchstart',e=>{ dragging=true; dragMoved=false; last=relPos(e); },{passive:true});
@@ -699,10 +807,12 @@ function handleClick(p,button){
 
 /* buttons */
 $('#btnNext').onclick=advancePeriod;
-$('#btnHeat').onclick=()=>{ heatmap=!heatmap; $('#btnHeat').classList.toggle('on',heatmap); render(); };
+$('#btnHeat').onclick=()=>{ heatmap=!heatmap; syncTools(); render(); };
 $('#btnMenu').onclick=openMenu;
 $('#btnBulldoze').onclick=()=>{ removeMode=!removeMode; sel=null;
-  $('#btnBulldoze').classList.toggle('on',removeMode); renderPalette(); updateHint(); render(); };
+  renderPalette(); updateHint(); render(); };
+$('#btnInspect').onclick=()=>{ sel=null; removeMode=false;
+  renderPalette(); updateHint(); render(); };
 $('#tutNext').onclick=()=>{ if(tutorialIdx>=TUTORIAL.length-1) endTutorial(); else { tutorialIdx++; renderTut(); } };
 $('#tutSkip').onclick=endTutorial;
 

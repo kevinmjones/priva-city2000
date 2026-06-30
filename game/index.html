@@ -51,7 +51,6 @@
     </div>
 
     <div class="hud-actions">
-      <button id="btnHeat" class="hbtn" title="Toggle risk heatmap (H)">🌡️ Heatmap</button>
       <button id="btnNext" class="hbtn primary" title="Advance one fiscal period (Space)">▶ Next Period</button>
       <button id="btnMenu" class="hbtn" title="Menu">☰</button>
     </div>
@@ -67,14 +66,23 @@
     <!-- Inspector (hover/selected tile) -->
     <aside id="inspector" class="inspector" hidden></aside>
 
-    <!-- Build palette -->
-    <section id="palette" class="palette">
-      <div class="palette-head">
-        <span>Build palette</span>
-        <button id="btnBulldoze" class="tool-clear" title="Remove a placed control (refunds 60%)">⨯ Remove</button>
+    <!-- Build toolbox -->
+    <section id="palette" class="toolbox">
+      <div class="tbx-head">
+        <span class="tbx-title">🧰 Toolbox</span>
+        <span class="tbx-budget" id="tbxBudget"></span>
       </div>
-      <div class="palette-grid" id="paletteGrid"></div>
-      <div class="palette-hint" id="paletteHint">Pick a control, then click a tile in its district to place it.</div>
+      <!-- Tool toolbar. Each .tool-ico is an icon slot OTL-121 swaps for real art. -->
+      <div class="tbx-tools" role="toolbar" aria-label="Map tools">
+        <button id="btnInspect" class="tool" title="Inspect mode — hover tiles to read them (Esc)">
+          <span class="tool-ico" data-icon-slot="inspect">🔍</span><span class="tool-lbl">Inspect</span></button>
+        <button id="btnHeat" class="tool" title="Toggle coverage heatmap (H)">
+          <span class="tool-ico" data-icon-slot="heatmap">🌡️</span><span class="tool-lbl">Heatmap</span></button>
+        <button id="btnBulldoze" class="tool" title="Remove a placed control — refunds 60%">
+          <span class="tool-ico" data-icon-slot="bulldoze">⨯</span><span class="tool-lbl">Remove</span></button>
+      </div>
+      <div class="tbx-groups" id="paletteGrid"></div>
+      <div class="tbx-hint" id="paletteHint">Pick a control, then click a tile in its district to place it.</div>
     </section>
 
     <!-- Regulatory news ticker -->
