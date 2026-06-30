@@ -60,7 +60,7 @@ Software should be a tool, not a relationship.
 
 Today we're launching the first five apps and our website. Over the coming weeks, we'll be publishing technical deep-dives, sharing our decision-making process, and — most importantly — listening to what you think.
 
-All our code is on [GitHub](https://github.com/kevinmjones/archapps). Our website is live at [archapps.dev]. We'd love to hear from you.
+All our code is on [GitHub](https://github.com/kevinmjones/priva-city2000). Our website is live at [archapps.dev]. We'd love to hear from you.
 
 Built with purpose, not bloat.
 
