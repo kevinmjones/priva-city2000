@@ -15,6 +15,7 @@
   --amber: #2563eb;
   --amber-2: #1d4ed8;
   --teal: #0d9488;
+  --teal-700: #0f766e;
   --teal-2: #14b8a6;
   --red: #dc2626;
   --green: #15803d;
@@ -592,7 +593,7 @@ a:focus-visible, button:focus-visible {
   text-transform: uppercase;
 }
 .tag.amb { color: var(--amber); border-color: rgba(37,99,235,.35); background: rgba(37,99,235,.06); }
-.tag.teal { color: var(--teal); border-color: rgba(95,182,173,.45); background: rgba(95,182,173,.06); }
+.tag.teal { color: var(--teal-700); border-color: rgba(95,182,173,.45); background: rgba(95,182,173,.06); }
 .tag.green { color: var(--green); border-color: rgba(134,176,107,.45); background: rgba(134,176,107,.06); }
 
 .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
@@ -660,16 +661,17 @@ a:focus-visible, button:focus-visible {
 .privacy-badges span {
   font-size: .62rem;
   letter-spacing: .08em;
-  color: var(--teal);
+  color: var(--teal-700);
   border: 1px solid rgba(13,148,136,.3);
   background: rgba(13,148,136,.05);
   border-radius: 999px;
   padding: .18rem .55rem;
 }
-.privacy-badges span::before { content: '\2713\00a0'; color: var(--teal); }
+.privacy-badges span::before { content: '\2713\00a0'; color: var(--teal-700); }
 
 .app-privacy { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
 .app-privacy .card { display: flex; flex-direction: column; }
+.app-privacy .card .privacy-badges { margin-top: auto; padding-top: .4rem; }
 .app-privacy .card-flag {
   font-size: .62rem;
   letter-spacing: .14em;
