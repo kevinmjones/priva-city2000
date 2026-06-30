@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Priva-city 2000 — Build the Governance Program</title>
+  <meta name="description" content="Priva-city 2000: an isometric, SimCity-2000-style builder where the city is an enterprise and you build out its privacy & AI governance program. Raise Trust, cut Risk, pass the EU AI Act audit.">
+  <meta property="og:title" content="Priva-city 2000">
+  <meta property="og:description" content="Build the privacy & AI governance program for a whole enterprise. Isometric, retro, witty. No backend.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='86'>🛡️</text></svg>">
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <!-- ============ Loading / boot ============ -->
+  <div id="boot" class="boot">
+    <div class="boot-logo">🛡️</div>
+    <div class="boot-title">PRIVA-CITY <span>2000</span></div>
+    <div class="boot-sub">Booting governance kernel…</div>
+  </div>
+
+  <!-- ============ Top HUD ============ -->
+  <header id="hud" class="hud" hidden>
+    <div class="hud-brand">
+      <span class="hud-mark">🛡️</span>
+      <span class="hud-name">PRIVA-CITY <b>2000</b></span>
+    </div>
+
+    <div class="hud-stats">
+      <div class="stat stat-trust" title="Customer + regulator + board confidence">
+        <span class="stat-label">Trust</span>
+        <span class="stat-val" id="statTrust">50</span>
+        <div class="bar"><i id="barTrust" style="width:50%"></i></div>
+      </div>
+      <div class="stat stat-risk" title="Estimated annual risk exposure from ungoverned activity">
+        <span class="stat-label">Risk Exposure</span>
+        <span class="stat-val" id="statRisk">$0</span>
+        <div class="bar"><i id="barRisk" class="bad" style="width:0%"></i></div>
+      </div>
+      <div class="stat stat-budget" title="Compliance budget &amp; risk capital">
+        <span class="stat-label">Budget</span>
+        <span class="stat-val" id="statBudget">$0</span>
+      </div>
+      <div class="stat stat-period" title="Fiscal period (month)">
+        <span class="stat-label">Period</span>
+        <span class="stat-val"><span id="statPeriod">1</span><small>/<span id="statPeriodMax">8</span></small></span>
+      </div>
+    </div>
+
+    <div class="hud-frameworks" id="frameworks">
+      <!-- framework readiness bars injected -->
+    </div>
+
+    <div class="hud-actions">
+      <button id="btnHeat" class="hbtn" title="Toggle risk heatmap (H)">🌡️ Heatmap</button>
+      <button id="btnNext" class="hbtn primary" title="Advance one fiscal period (Space)">▶ Next Period</button>
+      <button id="btnMenu" class="hbtn" title="Menu">☰</button>
+    </div>
+  </header>
+
+  <!-- ============ Main stage ============ -->
+  <main id="stage" class="stage" hidden>
+    <canvas id="city"></canvas>
+
+    <!-- Goal / challenge banner -->
+    <div id="goal" class="goal-banner"></div>
+
+    <!-- Inspector (hover/selected tile) -->
+    <aside id="inspector" class="inspector" hidden></aside>
+
+    <!-- Build palette -->
+    <section id="palette" class="palette">
+      <div class="palette-head">
+        <span>Build palette</span>
+        <button id="btnBulldoze" class="tool-clear" title="Remove a placed control (refunds 60%)">⨯ Remove</button>
+      </div>
+      <div class="palette-grid" id="paletteGrid"></div>
+      <div class="palette-hint" id="paletteHint">Pick a control, then click a tile in its district to place it.</div>
+    </section>
+
+    <!-- Regulatory news ticker -->
+    <div class="ticker">
+      <span class="ticker-tag">REG&nbsp;WIRE</span>
+      <div class="ticker-track"><div id="tickerText" class="ticker-text"></div></div>
+    </div>
+
+    <!-- Toast / event stack -->
+    <div id="toasts" class="toasts"></div>
+  </main>
+
+  <!-- ============ Tutorial overlay ============ -->
+  <div id="tutorial" class="overlay" hidden>
+    <div class="overlay-card">
+      <div class="overlay-step" id="tutStep">1 / 5</div>
+      <h2 id="tutTitle">Welcome, Chief Privacy Officer</h2>
+      <p id="tutBody"></p>
+      <div class="overlay-actions">
+        <button id="tutSkip" class="hbtn ghost">Skip</button>
+        <button id="tutNext" class="hbtn primary">Next ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Menu / end-game modal ============ -->
+  <div id="modal" class="overlay" hidden>
+    <div class="overlay-card" id="modalCard"></div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
