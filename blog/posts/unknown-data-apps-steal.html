@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/priva-city2000/">
+  <title>The unknown data your apps steal — and the risk in the era of AI — Arch Apps Blog</title>
+  <meta name="description" content="A sourced look at what mobile apps quietly collect, who it goes to, and why AI raises the stakes — re-identification, training data, inference at scale. Every claim is cited.">
+  <meta property="og:title" content="The unknown data your apps steal — and the risk in the era of AI">
+  <meta property="og:description" content="What your apps quietly collect, who it goes to, and why AI makes old data dangerous again. Sourced from FTC actions, academic research, and investigative journalism.">
+  <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&amp;family=JetBrains+Mono:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;◆&lt;/text&gt;&lt;/svg&gt;">
+  <style>
+    .report-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: .82rem; }
+    .report-table th, .report-table td { text-align: left; padding: .6rem .7rem; border-bottom: 1px solid var(--rule-soft); vertical-align: top; color: var(--fg-dim); }
+    .report-table th { color: var(--fg); font-weight: 500; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+    .report-table tr:last-child td { border-bottom: none; }
+    .callout { border-left: 3px solid var(--teal); background: var(--paper-2); padding: 1rem 1.2rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; }
+    .callout p { margin: .3rem 0; color: var(--fg-dim); }
+    .callout strong { color: var(--fg); }
+    .report-meta { color: var(--fg-faint); font-size: .72rem; letter-spacing: .12em; margin-bottom: .5rem; text-transform: uppercase; }
+    .sources { font-size: .78rem; }
+    .sources li { margin-bottom: .5rem; color: var(--fg-faint); }
+    .sources a { word-break: break-word; }
+    sup a { text-decoration: none; color: var(--teal); font-weight: 500; }
+    .lede { font-size: 1.08rem; color: var(--fg) !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <a href="./" class="brand">Arch Apps</a>
+      <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('nav').classList.toggle('open')">&#9776;</button>
+      <nav>
+        <a href="./">Home</a>
+        <a href="gallery.html">Apps</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="about.html">About</a>
+        <a href="mission.html">Mission</a>
+        <a href="blog/">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="article-shell">
+      <div class="article-prose">
+        <p class="report-meta">Research report &middot; June 30, 2026</p>
+        <h1>The unknown data your apps steal <em>— and the risk in the era of AI</em></h1>
+
+        <p class="lede">You can read every privacy policy on your phone and still not know what your apps actually do. The collection is invisible by design. This is a sourced account of what gets taken, who it goes to, and why the AI era turned old, &ldquo;anonymous&rdquo; data into something that can find you by name.</p>
+
+        <p>We build privacy-first utilities, so we have an obvious stake in this argument. We have tried to earn your trust the hard way: every factual claim below is tied to a named source — an FTC order, a court filing, a peer-reviewed paper, or original reporting. Where something is a documented <em>risk</em> rather than a proven incident, we say so. We left the regulators' own words in wherever we could. You should not take a privacy claim on faith — including ours.</p>
+
+        <h2>Part 1 — What actually gets collected</h2>
+
+        <p>Most data harvesting does not look like a breach. It looks like a free app working exactly as designed. Here are the categories with the clearest paper trail — each one backed by an enforcement action or an investigation, not speculation.</p>
+
+        <h3>Period and fertility trackers</h3>
+
+        <p>Apps in this category collect the most intimate data a person can record: cycle dates, symptoms, sexual activity, and the fact of a pregnancy. The FTC found that Flo Health shared identifiable health events with Facebook, Google, AppsFlyer, Flurry, and Fabric — meaning <em>the fact that a user was trying to conceive</em> became a marketing signal.<sup><a href="#s1">1</a></sup> Related litigation produced roughly $59.5M in combined settlements, and in 2025 a California jury found Meta liable under the state's wiretap law for receiving that data.<sup><a href="#s2">2</a></sup> A separate FTC action barred the ovulation app Premom from sharing health data for advertising after it sent precise geolocation, device identifiers, and data to China-based analytics SDKs.<sup><a href="#s3">3</a></sup></p>
+
+        <div class="callout">
+          <p><strong>What we will not claim:</strong> Despite widespread reporting, there is no known prosecution that has used menstrual-tracking data to charge anyone. The post-<em>Dobbs</em> fear is real and well-documented — Mozilla flagged 18 of 25 reproductive-health apps over vague law-enforcement disclosure policies<sup><a href="#s4">4</a></sup> — but it is a <em>risk</em>, not a recorded event, and we will not dress it up as more than that. Honest stakes are scary enough.</p>
+        </div>
+
+        <h3>&ldquo;Family safety&rdquo; and location-sharing apps</h3>
+
+        <p>Life360, a family-location app, was found by The Markup to be selling precise location data on its roughly 33 million users to data brokers including X-Mode, Cuebiq, Allstate's Arity, and SafeGraph — about a dozen partners, generating an estimated $16M in data-sale revenue in a single year. The app marketed safety; the business model was resale.<sup><a href="#s5">5</a></sup> (Life360 later said it would stop selling precise data to most brokers.)</p>
+
+        <h3>Location brokers and the SDKs that feed them</h3>
+
+        <p>Underneath thousands of &ldquo;free&rdquo; apps sits an invisible plumbing layer: advertising SDKs that siphon precise location and sell it onward. The FTC issued its <em>first-ever</em> ban on selling sensitive location data against the broker X-Mode/Outlogic in January 2024, with parallel actions against InMarket, Mobilewalla, and Gravy Analytics/Venntel — the last of which was curating more than 17 billion location signals from around a billion devices <em>per day</em>.<sup><a href="#s6">6</a></sup><sup><a href="#s7">7</a></sup><sup><a href="#s8">8</a></sup> This data did not just feed advertisers. U.S. government agencies bought bulk phone-location data from brokers to sidestep the warrant process, and a 2025 breach at Gravy exposed location points near the White House, military bases, and places of worship.<sup><a href="#s7">7</a></sup> Mobilewalla even built an audience segment of women who had visited pregnancy centers.<sup><a href="#s8">8</a></sup></p>
+
+        <h3>&ldquo;Free&rdquo; single-purpose utilities that over-collect</h3>
+
+        <p>This is the textbook case — and the one closest to home for us. A decade ago, the FTC found that <strong>Brightest Flashlight Free</strong> transmitted a user's precise location and a unique device ID to ad networks <em>the instant the app opened — before the user agreed to anything, and even if they tapped &ldquo;Refuse.&rdquo;</em><sup><a href="#s10">10</a></sup> A flashlight. The Weather Channel app was sued by the Los Angeles City Attorney for collecting precise location under the cover of a &ldquo;personalized forecast&rdquo; and routing it toward advertisers and even hedge funds.<sup><a href="#s11">11</a></sup> The pattern is always the same: the app's real function is a pretext for the permission, and the permission is the product.</p>
+
+        <h3>&ldquo;Privacy&rdquo; tools that betray the premise</h3>
+
+        <p>The cruelest category is the one that sells itself on protection. Avast's free antivirus collected detailed browsing histories — every search, click, map lookup, and video view — which its subsidiary Jumpshot then sold to over a hundred corporate clients under the pitch &ldquo;Every search. Every click. Every buy.&rdquo; The FTC banned Avast from selling browsing data and fined it $16.5M.<sup><a href="#s13">13</a></sup><sup><a href="#s14">14</a></sup> Facebook's Onavo &ldquo;Protect&rdquo; VPN, meanwhile, was quietly monitoring what users did in <em>other</em> apps; Apple pulled it in 2018.<sup><a href="#s14">14</a></sup></p>
+
+        <h3>The quiet harm: gating the basics</h3>
+
+        <p>Not every harm is a sale. A calculator that demands internet permission, a notepad that forces an account, a scanner that insists on cloud sync — each one is a small surrender. Every forced account is an identity anchor. Every forced cloud copy is your data sitting on someone else's server, exposed to the next breach, the next subpoena, the next change to the terms of service, and — increasingly — the next model training run. Mozilla found that roughly 80% of the Google Play &ldquo;Data Safety&rdquo; labels it reviewed were false or misleading, so the disclosures meant to protect you frequently do not.<sup><a href="#s15">15</a></sup></p>
+
+        <table class="report-table">
+          <thead>
+            <tr><th>Category</th><th>Worst-case data</th><th>Where it goes</th><th>Anchor source</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Period / health trackers</td><td>Cycle + pregnancy status</td><td>Facebook, Google, ad SDKs</td><td>FTC: Flo, Premom</td></tr>
+            <tr><td>Family-safety location</td><td>Continuous precise GPS</td><td>X-Mode, Cuebiq, Arity, SafeGraph</td><td>The Markup</td></tr>
+            <tr><td>Location brokers + SDKs</td><td>Precise location, ~1B devices</td><td>Advertisers, hedge funds, government</td><td>FTC: X-Mode, Gravy, Mobilewalla</td></tr>
+            <tr><td>Over-collecting utilities</td><td>Location + device ID, pre-consent</td><td>Ad networks, hedge funds</td><td>FTC: Flashlight; LA v. IBM</td></tr>
+            <tr><td>Fake-privacy VPN / antivirus</td><td>Full browsing history</td><td>Jumpshot's 100+ buyers</td><td>FTC: Avast</td></tr>
+            <tr><td>Account / cloud-gated basics</td><td>Whatever the app touches</td><td>The vendor's cloud</td><td>Mozilla on Play labels</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Part 2 — Why AI changes the stakes</h2>
+
+        <p>All of the above was already harmful in the ad-targeting era. Artificial intelligence does not create a new kind of theft so much as it changes the <em>half-life and reach</em> of the old one. The throughline: data you &ldquo;anonymously&rdquo; leaked years ago does not stay anonymous, and does not stay in the past.</p>
+
+        <h3>1. It becomes training data — and there is no delete</h3>
+
+        <p>Personal data scraped from the web and from apps is now bulk-ingested to train models. LAION-5B, the ~5-billion-image dataset behind Stable Diffusion, was found by researchers to contain a woman's private post-operative medical photographs — along with thousands of suspected instances of illegal content, which led to the dataset being pulled offline.<sup><a href="#s17">17</a></sup><sup><a href="#s18">18</a></sup> Once your data is baked into a model's weights, there is no settings page to remove it. It is not stored like a row in a database you can ask to delete; it is dissolved into the math.</p>
+
+        <h3>2. Re-identification defeats &ldquo;anonymized&rdquo;</h3>
+
+        <p>&ldquo;Anonymous&rdquo; is a marketing word, not a mathematical guarantee. The foundational research is decades old and has only gotten more damning:</p>
+
+        <ul>
+          <li><strong>87% of Americans</strong> can be uniquely identified by just their ZIP code, gender, and date of birth (Sweeney, CMU).<sup><a href="#s19">19</a></sup></li>
+          <li><strong>Four time-stamped location points</strong> are enough to uniquely re-identify 95% of people in a 1.5-million-person mobility dataset — and four points re-identify 90% of people in credit-card records (de Montjoye et al.).<sup><a href="#s20">20</a></sup></li>
+          <li>The &ldquo;anonymized&rdquo; Netflix Prize dataset of 500,000 users was de-anonymized by cross-referencing public IMDb reviews (Narayanan &amp; Shmatikov).<sup><a href="#s21">21</a></sup></li>
+        </ul>
+
+        <p>The location exhaust from the categories in Part 1 is <em>exactly</em> this kind of high-uniqueness data. Stripping your name off it changes very little.</p>
+
+        <h3>3. AI turns raw exhaust into sensitive inferences at scale</h3>
+
+        <p>Brokers were already building machine-learning &ldquo;audience segments&rdquo; — recall Mobilewalla's segment of women who visited pregnancy centers. Modern models make this cheaper, broader, and predictive. From where you went, a model can infer health status, sexuality, religion, immigration status, and political affiliation — traits you never disclosed. The scale is the point: a single broker was reported to hold roughly 1,500 attributes on about 500 million people,<sup><a href="#s22">22</a></sup> and an FTC study found one broker holding more than 700 billion aggregated data elements.<sup><a href="#s23">23</a></sup> Inference is how scattered, &ldquo;harmless&rdquo; data points become a profile.</p>
+
+        <h3>4. Scraping plus face recognition closes the loop to your physical self</h3>
+
+        <p>Clearview AI scraped billions of public photos into a faceprint database and sold access to law enforcement; it was found to violate Illinois' biometric privacy law and was fined by European regulators.<sup><a href="#s24">24</a></sup> Combine a faceprint with re-identified location history and broker attributes, and you have a cross-linked, real-world, real-name profile — assembled entirely from data that each individual app swore was anonymous.</p>
+
+        <div class="callout">
+          <p><strong>The thesis in one line:</strong> the only data that cannot be trained on, inferred from, re-identified, breached, or subpoenaed is the data that was never collected.</p>
+        </div>
+
+        <h2>Part 3 — What to actually do about it</h2>
+
+        <p>This is the part where most privacy articles tell you to read every policy, audit every permission, and live in a state of low-grade dread. That advice does not scale, because the collection is designed to be invisible and the labels are frequently wrong. A few habits genuinely help:</p>
+
+        <ul>
+          <li><strong>Treat permissions as claims to verify, not boxes to clear.</strong> A flashlight asking for location is not a bug; it is the business model showing through.</li>
+          <li><strong>Strip metadata before you share photos.</strong> The GPS coordinates embedded in an image are the precise signal that feeds re-identification.</li>
+          <li><strong>Prefer tools that work offline.</strong> If an app functions with no network connection, there is a hard physical limit on what it can leak.</li>
+          <li><strong>Be most careful with the &ldquo;free privacy&rdquo; category.</strong> A free VPN or cleaner has to make money somehow, and the Avast case shows how.</li>
+        </ul>
+
+        <p>But the honest answer is that individual vigilance is losing to industrial-scale collection. The durable fix is architectural: software that <em>cannot</em> betray you because it never holds your data in the first place.</p>
+
+        <p>That is the principle we build on. Our apps work offline, ask for no account, carry no advertising SDKs, and keep your data on your device because there is nowhere for it to go. We do not say this to sell you something — most of what we make is free. We say it because, after looking at the evidence above, we concluded it is the only privacy guarantee that survives the AI era. Data that was never collected cannot be trained on, inferred from, or subpoenaed. Everything else is a promise, and promises break.</p>
+
+        <p>You do not have to take our word for any of it. The sources are below, and our code is public. Verify both.</p>
+
+        <p>— The Arch Apps team</p>
+
+        <h2>Sources</h2>
+
+        <p style="font-size:.82rem;">Every claim above is tied to a named source. FTC orders and court filings are primary; where automated access to a source was blocked, facts were cross-verified against the Federal Register, The Markup, Bloomberg Law, the HIPAA Journal, and academic mirrors. We have deliberately flagged risks versus realized incidents throughout.</p>
+
+        <ol class="sources">
+          <li id="s1"><strong>[1]</strong> FTC, <em>Developer of popular women's fertility-tracking app settles FTC allegations that it misled consumers about disclosure of health data</em> (Flo Health), Jan 2021; finalized Jun 2021.</li>
+          <li id="s2"><strong>[2]</strong> <em>Frasco v. Flo Health</em> — approximately $59.5M in combined settlements (Google, Flo, Flurry); a 2025 San Francisco jury found Meta liable under California's Invasion of Privacy Act. (HIPAA Journal; National Law Review.) Meta damages were not set at time of writing.</li>
+          <li id="s3"><strong>[3]</strong> FTC, <em>Ovulation tracking app Premom barred from sharing health data for advertising</em>, May 2023 (Health Breach Notification Rule; $200K penalty; named Jiguang/Umeng SDKs).</li>
+          <li id="s4"><strong>[4]</strong> Mozilla Foundation, <em>Privacy Not Included</em> — reproductive-health app review (18 of 25 flagged), Aug 2022.</li>
+          <li id="s5"><strong>[5]</strong> The Markup (Jon Keegan &amp; Alfred Ng), <em>The popular family safety app Life360 is selling precise location data on its tens of millions of users</em>, Dec 2021.</li>
+          <li id="s6"><strong>[6]</strong> FTC, <em>FTC order prohibits data broker X-Mode Social and Outlogic from selling sensitive location data</em>, Jan 2024 (first-ever such ban).</li>
+          <li id="s7"><strong>[7]</strong> FTC action against Gravy Analytics / Venntel, Dec 2024 (curating &gt;17 billion location signals from ~1 billion devices daily); Gravy breach reporting, TechCrunch, Jan 2025.</li>
+          <li id="s8"><strong>[8]</strong> FTC action against Mobilewalla, Dec 2024 (&gt;500M advertising IDs plus precise location; pregnancy-center audience segment).</li>
+          <li id="s10"><strong>[10]</strong> FTC, <em>Android flashlight app developer settles FTC charges it deceived consumers</em> (Brightest Flashlight Free / Goldenshores Technologies), Dec 2013; final order Apr 2014.</li>
+          <li id="s11"><strong>[11]</strong> Los Angeles City Attorney v. TWC Product and Technology (The Weather Channel app / IBM), filed Jan 2019; settled Aug 2020. Original reporting: The New York Times, Dec 2018.</li>
+          <li id="s13"><strong>[13]</strong> Vice / Motherboard, <em>Leaked documents expose the secretive market for your web browsing data</em> (Avast / Jumpshot; named corporate buyers), Jan 2020.</li>
+          <li id="s14"><strong>[14]</strong> FTC, <em>FTC order will ban Avast from selling browsing data for advertising purposes, require it to pay $16.5 million</em>, Feb 2024; final Jun 2024. Onavo: TechCrunch, 2018–2019.</li>
+          <li id="s15"><strong>[15]</strong> Mozilla Foundation, <em>See No Evil: How loopholes in the Google Play Store's Data Safety labels leave companies in the clear and consumers in the dark</em>, 2023.</li>
+          <li id="s17"><strong>[17]</strong> Stanford Internet Observatory — identification of suspected illegal imagery within LAION-5B; the dataset was subsequently taken offline, 2023.</li>
+          <li id="s18"><strong>[18]</strong> Private medical photographs found within the LAION-5B training set, 2022 (Ars Technica; PetaPixel).</li>
+          <li id="s19"><strong>[19]</strong> Latanya Sweeney, <em>Simple Demographics Often Identify People Uniquely</em> (~87% via ZIP, gender, birth date), Carnegie Mellon University, 2000.</li>
+          <li id="s20"><strong>[20]</strong> Yves-Alexandre de Montjoye et al., <em>Unique in the Crowd: The privacy bounds of human mobility</em> (4 points → 95%), Scientific Reports, 2013; and the credit-card metadata study (4 points → 90%), Science, 2015.</li>
+          <li id="s21"><strong>[21]</strong> Arvind Narayanan &amp; Vitaly Shmatikov, <em>Robust De-anonymization of Large Sparse Datasets</em> (Netflix Prize), IEEE Symposium on Security and Privacy, 2008.</li>
+          <li id="s22"><strong>[22]</strong> Natasha Singer, <em>You for Sale: Mapping, and Sharing, the Consumer Genome</em> (Acxiom: ~1,500 data points on ~500 million people), The New York Times, 2012.</li>
+          <li id="s23"><strong>[23]</strong> FTC, <em>Data Brokers: A Call for Transparency and Accountability</em> (one broker holding &gt;700 billion aggregated data elements), May 2014.</li>
+          <li id="s24"><strong>[24]</strong> Clearview AI — ACLU settlement under Illinois' Biometric Information Privacy Act, May 2022; Italian Garante €20M fine; UK ICO actions. (Not an FTC action.)</li>
+        </ol>
+
+        <p class="backlink" style="margin-top:3rem;"><a href="blog/">← Back to blog</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <span class="footer-brand">Arch Apps</span>
+        <p>Simple, functional tools. No bloat.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Site</h4>
+        <a href="./">Home</a>
+        <a href="gallery.html">Apps</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="about.html">About</a>
+        <a href="mission.html">Mission</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="blog/">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="https://github.com/kevinmjones/priva-city2000">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Arch Apps &middot; Built with purpose, not bloat</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
