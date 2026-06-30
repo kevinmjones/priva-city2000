@@ -129,7 +129,7 @@ let sel=null, removeMode=false, hover=null, heatmap=false, tutorialIdx=0;
 const view = { scale:1, pan:{x:0,y:0}, origin:{x:0,y:0} };
 
 function freshState(){
-  return { period:1, budget:90, reputation:0, aiActLive:false,
+  return { period:1, budget:100, reputation:0, aiActLive:false,
            placed:[], firedEvents:[], tutorialDone:false };
 }
 
@@ -423,6 +423,7 @@ function toast(kind,title,body){
   el.className='toast '+(kind||'');
   el.innerHTML=`<h5>${title}</h5><p>${body}</p>`;
   elToasts.appendChild(el);
+  while(elToasts.children.length>4) elToasts.removeChild(elToasts.firstChild);
   setTimeout(()=>el.remove(),6200);
 }
 

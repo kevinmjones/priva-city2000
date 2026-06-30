@@ -1156,3 +1156,31 @@ a:focus-visible, button:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* ============ Priva-city 2000 game banner (home) ============ */
+.nav-game{color:var(--teal,#0f9e90)!important;font-weight:600}
+.game-banner{
+  display:flex;gap:28px;align-items:center;flex-wrap:wrap;
+  margin:34px auto;max-width:1080px;padding:26px 30px;
+  border-radius:20px;text-decoration:none;color:#eaf1ff;
+  background:linear-gradient(125deg,#0f1d34 0%,#16294a 55%,#143f3a 100%);
+  border:1px solid #21406e;box-shadow:0 18px 50px rgba(8,20,40,.45);
+  position:relative;overflow:hidden;transition:transform .15s ease,box-shadow .15s ease;
+}
+.game-banner:hover{transform:translateY(-3px);box-shadow:0 26px 60px rgba(8,20,40,.55)}
+.game-banner-iso{position:relative;width:148px;height:120px;flex:0 0 auto}
+.gb-tile{position:absolute;width:70px;height:70px;border-radius:8px;
+  transform:rotate(45deg) skew(-12deg,-12deg);box-shadow:0 8px 18px rgba(0,0,0,.35)}
+.gb-a{left:40px;top:6px;background:linear-gradient(#3b78d8,#284a82)}
+.gb-b{left:6px;top:34px;background:linear-gradient(#1fa99a,#1b6e66)}
+.gb-c{left:74px;top:34px;background:linear-gradient(#8a6bf0,#5a47a0)}
+.gb-d{left:40px;top:62px;background:linear-gradient(#2fd6c4,#0f9e90)}
+.gb-shield{position:absolute;left:54px;top:34px;font-size:40px;z-index:2;filter:drop-shadow(0 6px 10px rgba(0,0,0,.4))}
+.game-banner-copy{flex:1;min-width:260px}
+.gb-eyebrow{font-family:var(--mono,monospace);font-size:12px;letter-spacing:.08em;color:#2fd6c4}
+.game-banner-copy h2{margin:6px 0 8px;font-size:30px;color:#fff;line-height:1.05}
+.game-banner-copy p{margin:0 0 14px;color:#b9c8e6;font-size:15px;line-height:1.5;max-width:62ch}
+.gb-cta{display:inline-block;background:linear-gradient(180deg,#2fd6c4,#0f9e90);color:#062a27;
+  font-weight:700;padding:10px 18px;border-radius:10px;font-size:14px}
+.game-banner:hover .gb-cta{filter:brightness(1.06)}
+@media (max-width:560px){.game-banner{padding:22px}.game-banner-iso{margin:0 auto}}
