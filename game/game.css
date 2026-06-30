@@ -168,8 +168,10 @@ canvas#city{position:absolute;inset:0;width:100%;height:100%;display:block;curso
 .pcard.sel{border-color:var(--teal);background:#16334a;box-shadow:0 0 0 1px var(--teal) inset}
 .pcard.cant{opacity:.55;cursor:not-allowed}
 .pcard.cant:hover{transform:none;background:var(--panel)}
-/* icon slot — OTL-121 swaps the glyph here for real control-icon art */
-.pcard-ico{font-size:22px;line-height:1;height:26px;display:flex;align-items:center}
+/* icon slot — real control-icon art from the OTL-120 pack (emoji fallback) */
+.pcard-ico{font-size:22px;line-height:1;height:28px;display:flex;align-items:center}
+.pcard-img{width:28px;height:28px;display:block;image-rendering:auto}
+.tool-img{width:22px;height:22px;display:block;image-rendering:auto}
 .pcard-body{display:flex;flex-direction:column;gap:4px}
 .pcard-name{font-size:12px;font-weight:600;line-height:1.2;color:var(--ink)}
 .pcard-meta{display:flex;justify-content:space-between;align-items:baseline;gap:6px}

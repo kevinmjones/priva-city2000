@@ -141,6 +141,38 @@ let st, buildings, placed, coverField, won=false, lost=false;
 let sel=null, removeMode=false, hover=null, heatmap=false, tutorialIdx=0;
 const view = { scale:1, pan:{x:0,y:0}, origin:{x:0,y:0}, userZoomed:false };
 
+/* ---------------- Sprite art (OTL-121) ----------------
+   SimCity-2000-style isometric pixel sprites from the OTL-120 art
+   pack (game/assets/). Loaded async; every draw path falls back to
+   the procedural iso boxes until the pack is ready and per-sprite if
+   one fails to load, so the game is always playable (fail-safe /
+   graceful degradation). Building/control sprites are 64x80 with the
+   tile-centre anchor at (32,62); ground tiles are 64x48 (anchor 32,16). */
+const SPRITES = {};
+let spritesReady = false;
+const TILE_FILE = { hr:'hr-district', cust:'customer-district', ai:'ai-district' };
+function loadSprites(){
+  const manifest = [];
+  CONTROLS.forEach(c => manifest.push(['ctrl:'+c.id, 'assets/controls/'+c.id+'.png']));
+  Object.keys(GAPS).forEach(g => {
+    manifest.push(['gap:'+g+':warn', 'assets/gaps/'+g+'-warning.png']);
+    manifest.push(['gap:'+g+':res',  'assets/gaps/'+g+'-resolved.png']);
+  });
+  Object.entries(TILE_FILE).forEach(([id,file]) => manifest.push(['tile:'+id, 'assets/tiles/'+file+'.png']));
+  manifest.push(['tile:neutral', 'assets/tiles/neutral.png']);
+  let pending = manifest.length;
+  const done = () => { if(--pending<=0) spritesReady=true; render(); };
+  for(const [key,src] of manifest){
+    const img = new Image();
+    img.onload = done; img.onerror = done;   // a missing sprite simply falls back to box()
+    img.src = src;
+    SPRITES[key] = img;
+  }
+}
+function sprite(key){ const im=SPRITES[key]; return (im && im.complete && im.naturalWidth) ? im : null; }
+/* Place a 64x80 building/control sprite so its anchor (32,62) lands on tile centre p. */
+function drawSprite(img,p,s){ ctx.drawImage(img, p.x-32*s, p.y-62*s, 64*s, 80*s); }
+
 function freshState(){
   return { period:1, budget:100, reputation:0, aiActLive:false,
            placed:[], firedEvents:[], tutorialDone:false };
@@ -333,11 +365,14 @@ function render(){
   // ---- ground tiles ----
   for(let r=0;r<GRID;r++) for(let c=0;c<GRID;c++){
     const p=cellToScreen(c,r), d=districtOf(r);
+    // procedural base always paints first — district colour + a seam-filler
+    // behind the sprite tile so no sub-pixel gaps show the sky through.
     diamond(p.x,p.y,s);
-    const base=(c+r)%2? shade(d.soft,8):d.soft;
-    ctx.fillStyle=base; ctx.fill();
+    ctx.fillStyle=(c+r)%2? shade(d.soft,8):d.soft; ctx.fill();
+    const tImg=sprite('tile:'+d.id);
+    if(tImg) ctx.drawImage(tImg, p.x-32*s, p.y-16*s, 64*s, 48*s);
     if(heatmap){ diamond(p.x,p.y,s); ctx.fillStyle=heatColor(coverField[r][c]); ctx.fill(); }
-    ctx.lineWidth=1; ctx.strokeStyle='rgba(8,16,30,.55)'; ctx.stroke();
+    if(!tImg){ ctx.lineWidth=1; ctx.strokeStyle='rgba(8,16,30,.55)'; ctx.stroke(); }
   }
   // district boundary seams (brighter line between bands)
   ctx.lineWidth=2; ctx.strokeStyle='rgba(180,205,255,.18)';
@@ -410,40 +445,52 @@ let pulse=0;
 function drawBuilding(b){
   const p=cellToScreen(b.col,b.row), s=view.scale;
   const resolved=buildingResolved(b);
-  const wHalf=TILE_W/2*0.82*s, hHalf=TILE_H/2*0.82*s, ht=18*s;
-  const d=districtOf(b.row);
-  const top = resolved? shade(d.hue,30) : shade('#6b7790',10);
-  const left= resolved? shade(d.hue,-30): '#3b4458';
-  const right= resolved? shade(d.hue,-12): '#525c72';
-  box(p.x,p.y,wHalf,hHalf,ht, top, left, right);
-  // legible name plate (status-tinted) above the building
   const hovered = hover && hover.col===b.col && hover.row===b.row;
-  const plateY = p.y - ht - hHalf - 11*s;
+  // gap sprites carry their own ⚠/✓ rooftop marker, so we don't redraw one.
+  const img=sprite('gap:'+b.gap+':'+(resolved?'res':'warn'));
+  let plateY;
+  if(img){
+    // gentle attention pulse on unresolved gaps so they still read as "live".
+    if(!resolved){ ctx.save(); ctx.globalAlpha=0.78+0.22*Math.sin(pulse/16); }
+    drawSprite(img,p,s);
+    if(!resolved) ctx.restore();
+    plateY = p.y - 56*s;
+  } else {
+    const wHalf=TILE_W/2*0.82*s, hHalf=TILE_H/2*0.82*s, ht=18*s;
+    const d=districtOf(b.row);
+    box(p.x,p.y,wHalf,hHalf,ht,
+        resolved? shade(d.hue,30):shade('#6b7790',10),
+        resolved? shade(d.hue,-30):'#3b4458',
+        resolved? shade(d.hue,-12):'#525c72');
+    plateY = p.y - ht - hHalf - 11*s;
+    const my=plateY-13*s; ctx.textAlign='center'; ctx.textBaseline='middle';
+    if(resolved){ ctx.font=`${13*s}px sans-serif`; ctx.fillText('✅',p.x,my); }
+    else { const a=0.55+0.45*Math.sin(pulse/16); ctx.globalAlpha=a; ctx.font=`${15*s}px sans-serif`; ctx.fillText('⚠️',p.x,my); ctx.globalAlpha=1; }
+  }
+  // legible name plate (status-tinted) above the building
   plate(p.x, plateY, shortName(b.name,16), {
     fs:Math.max(10,11*s), pad:5,
     bg: hovered? 'rgba(18,29,50,.97)' : 'rgba(9,15,28,.84)',
     ink:'#eaf1ff', accent: resolved?'#54d68a':'#ff6b81',
     bd: resolved?'rgba(84,214,138,.45)':'rgba(255,107,129,.45)' });
-  // status marker above the plate
-  const my = plateY - 13*s;
-  if(resolved){
-    ctx.font=`${13*s}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText('✅',p.x,my);
-  } else {
-    const a=0.55+0.45*Math.sin(pulse/16);
-    ctx.globalAlpha=a; ctx.font=`${15*s}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText('⚠️',p.x,my); ctx.globalAlpha=1;
-  }
 }
 
 function drawControl(p0){
   const c=CONTROL_BY_ID[p0.type], p=cellToScreen(p0.col,p0.row), s=view.scale;
-  const wHalf=TILE_W/2*0.7*s, hHalf=TILE_H/2*0.7*s, ht=26*s;
-  box(p.x,p.y,wHalf,hHalf,ht, shade(c.color,28), shade(c.color,-40), shade(c.color,-18));
-  ctx.font=`${15*s}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.fillText(c.icon,p.x,p.y-ht-2*s);
+  const img=sprite('ctrl:'+p0.type);
+  let plateY;
+  if(img){
+    drawSprite(img,p,s);
+    plateY = p.y - 60*s;
+  } else {
+    const wHalf=TILE_W/2*0.7*s, hHalf=TILE_H/2*0.7*s, ht=26*s;
+    box(p.x,p.y,wHalf,hHalf,ht, shade(c.color,28), shade(c.color,-40), shade(c.color,-18));
+    ctx.font=`${15*s}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(c.icon,p.x,p.y-ht-2*s);
+    plateY = p.y - ht - 16*s;
+  }
   // legible control name plate, tinted to the control colour
-  plate(p.x, p.y - ht - 16*s, c.short, {
+  plate(p.x, plateY, c.short, {
     fs:Math.max(9,10*s), pad:5, bg:'rgba(9,15,28,.84)',
     ink:'#eaf1ff', accent:c.color, bd:'rgba(255,255,255,.12)' });
 }
@@ -464,7 +511,7 @@ function renderPalette(){
       const seld=sel&&sel.id===c.id;
       return `<button class="pcard${seld?' sel':''}${can?'':' cant'}" data-id="${c.id}"
         title="${c.blurb.replace(/"/g,'&quot;')}" aria-pressed="${seld}">
-        <span class="pcard-ico" data-icon-slot="${c.id}">${c.icon}</span>
+        <span class="pcard-ico" data-icon-slot="${c.id}"><img class="pcard-img" src="assets/icons/${c.id}.png" alt="" draggable="false" onerror="this.outerHTML='${c.icon}'"></span>
         <span class="pcard-body">
           <span class="pcard-name">${c.name}</span>
           <span class="pcard-meta">
@@ -742,6 +789,7 @@ function resetGame(){
 let booted=false;
 function boot(){
   if(booted) return; booted=true;
+  loadSprites();
   rebuildBuildings();
   const had=load();
   if(!had){ st=freshState(); placed=[]; }
